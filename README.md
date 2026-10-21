@@ -39,19 +39,11 @@ Aplikasi ini mencakup seluruh data yang diminta dengan tampilan kartu profil yan
     - **Jumlah Cucu (Total)**: Total jumlah cucu keluarga alumni.
     - **Cucu Laki-laki**: Jumlah cucu berjenis kelamin laki-laki.
     - **Cucu Perempuan**: Jumlah cucu berjenis kelamin perempuan (otomatis menghitung total cucu saat diinput pada formulir).
-11. **Tombol & Modal Share Link WhatsApp (Ajak Pensiunan Lain Isi Data)**:
-    - **Akses Cepat di Banyak Titik**:
-      - Header Atas Aplikasi: Tombol *"Share Link WA"* warna hijau dengan logo WhatsApp.
-      - Kartu Biodata Alumni: Kartu banner gradient *"Share Link Isi Data via WhatsApp"* dengan tombol aksi cepat.
-      - Floating Action Pill (FAB): Tombol melayang di layar HP agar selalu dapat diakses saat scroll.
-      - Direktori Warga: Tombol cepat *"Share Link WA"* di sebelah tombol Tambah Warga.
-      - Formulir Tambah/Edit Data: Banner panduan bagi yang ingin membagikan link formulir ke rekan alumni agar bisa mengisi sendiri dari HP mereka.
-    - **Modal Interaktif Share WhatsApp (`#modalShareWhatsApp`)**:
-      - **Field Link yang Dapat Diedit**: Menampilkan tautan URL yang akan dibagikan, bisa diedit dan disimpan otomatis ke browser.
-      - **Tombol Salin Link Saja**: Menyalin tautan langsung dengan 1 ketukan.
-      - **Kirim ke Nomor Tertentu**: Bisa memasukkan nomor WhatsApp rekan pensiunan (`0812...`) untuk mengirim pesan pribadi langsung.
-      - **Pratinjau Gelembung Chat WhatsApp**: Tampilan mockup chat bubble WhatsApp yang rapi dan memuat link aktif.
-      - **Kirim Langsung**: Membuka WhatsApp secara instan dengan format pesan silaturahmi purnabakti AAL yang lengkap dan santun.
+11. **Tombol Share Link (Bagikan Lembar Data)**:
+    - **Tombol Share Tunggal & Bersih**: Tombol *"Share"* praktis disematkan di header atas aplikasi (App Bar), tanpa duplikasi banner atau tombol yang memenuhi layar.
+    - **Dukungan Native Web Share & Salin Otomatis**:
+      - Membuka menu berbagi bawaan sistem (WhatsApp, Telegram, dll.) secara instan di HP Android / iOS tanpa duplikasi teks link.
+      - Otomatis menyalin tautan ke clipboard disertai notifikasi toast jika diakses melalui browser desktop atau mode offline.
 12. **Logo Resmi Astra Agro Lestari**:
     - Disematkan pada Header Atas Aplikasi, Kop Kartu ID Profil Alumni, Modal Formulir Pengisian, Penampil Zoom Foto, Favicon Tab Browser, dan Watermark Kartu.
 

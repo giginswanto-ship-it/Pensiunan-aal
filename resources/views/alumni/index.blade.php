@@ -133,10 +133,10 @@
         
         <!-- Action Buttons -->
         <div class="flex items-center gap-1.5 no-print">
-          <!-- Share Link WhatsApp Button -->
-          <button onclick="openShareLinkModal()" title="Share Link WA ke Pensiunan Lain" class="px-2.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 transition-all text-white font-bold text-[11px] flex items-center gap-1.5 shadow-sm border border-emerald-300/40">
-            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
-            <span class="hidden sm:inline">Share Link WA</span>
+          <!-- Tombol Share Link Tunggal -->
+          <button onclick="shareLink()" title="Bagikan Link Lembar Data" class="px-2.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 transition-all text-white font-bold text-[11px] flex items-center gap-1.5 shadow-sm border border-emerald-300/40">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+            <span class="hidden sm:inline">Share</span>
           </button>
           <button onclick="switchTab('list')" title="Daftar Alumni" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 transition-all text-white border border-white/10">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
@@ -401,34 +401,6 @@
           </div>
         </div>
 
-        <!-- WhatsApp Share Banner / Button Ke Pensiunan Lain -->
-        <div class="no-print p-4 rounded-3xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-700/25 border border-emerald-400/40 relative overflow-hidden">
-          <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
-          <div class="flex items-start justify-between gap-3 relative z-10">
-            <div class="min-w-0 flex-1">
-              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/20 text-white mb-2 border border-white/20">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-200 animate-pulse"></span>
-                Silaturahmi Purnabakti
-              </span>
-              <h4 class="font-extrabold text-sm text-white leading-snug">Share Link Isi Data via WhatsApp</h4>
-              <p class="text-[11px] text-emerald-100 mt-1 leading-relaxed">Bagikan link lembar data ini ke WhatsApp grup alumni atau langsung ke rekan purnabakti AAL untuk pengisian mandiri.</p>
-            </div>
-            <div class="w-11 h-11 rounded-2xl bg-white text-[#25D366] flex items-center justify-center shrink-0 shadow-md">
-              <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
-            </div>
-          </div>
-          
-          <div class="grid grid-cols-5 gap-2 mt-3.5 relative z-10">
-            <button onclick="openShareLinkModal()" class="col-span-3 py-2.5 px-3 rounded-xl bg-white hover:bg-emerald-50 active:scale-[0.98] text-emerald-800 font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all">
-              <svg class="w-4 h-4 text-[#25D366] fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
-              <span>Share Link WA</span>
-            </button>
-            <button onclick="copyShareUrlOnly()" class="col-span-2 py-2.5 px-2 rounded-xl bg-emerald-800/80 hover:bg-emerald-800 active:scale-[0.98] text-white font-bold text-xs flex items-center justify-center gap-1 transition-all border border-white/20" title="Salin Link Saja">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-              <span>Salin Link</span>
-            </button>
-          </div>
-        </div>
 
         <!-- Mobile Floating Action Bar for Quick Actions -->
         <div class="grid grid-cols-2 gap-2.5 no-print">
@@ -449,16 +421,10 @@
         <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200/80">
           <div class="flex items-center justify-between mb-3">
             <h3 class="font-bold text-slate-800 text-sm">Direktori Warga Alumni AAL (SQL)</h3>
-            <div class="flex items-center gap-1.5">
-              <button onclick="openShareLinkModal()" class="text-xs bg-[#25D366]/15 hover:bg-[#25D366]/25 text-emerald-800 font-bold px-2.5 py-1.5 rounded-lg border border-[#25D366]/40 flex items-center gap-1 transition-colors" title="Share Link Isi Data via WhatsApp">
-                <svg class="w-3.5 h-3.5 fill-current text-[#25D366]" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
-                <span>Share Link WA</span>
-              </button>
-              <button onclick="prepareNewAlumni()" class="text-xs bg-brand-50 hover:bg-brand-100 text-brand-700 font-semibold px-2.5 py-1.5 rounded-lg border border-brand-200 flex items-center gap-1">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                Tambah
-              </button>
-            </div>
+            <button onclick="prepareNewAlumni()" class="text-xs bg-brand-50 hover:bg-brand-100 text-brand-700 font-semibold px-2.5 py-1.5 rounded-lg border border-brand-200 flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              Tambah
+            </button>
           </div>
 
           <!-- Corporate Directory Shortcut Banner -->
@@ -491,11 +457,6 @@
 
     </main>
 
-    <!-- Floating Quick Share Link WA Button (Mobile Android) -->
-    <button onclick="openShareLinkModal()" class="absolute bottom-12 right-4 z-30 px-3.5 py-2 rounded-full bg-[#25D366] hover:bg-[#20bd5a] active:scale-95 text-white font-bold text-[11px] flex items-center gap-1.5 shadow-lg shadow-emerald-950/40 border border-white/30 transition-transform duration-200 no-print" title="Share Link Isi Data via WhatsApp">
-      <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
-      <span>Share Link WA</span>
-    </button>
 
     <!-- Bottom Android Navigation Bar -->
     <div class="android-nav-bar h-10 bg-slate-900 flex items-center justify-around px-12 text-slate-400 select-none shrink-0 no-print">
@@ -593,22 +554,6 @@
       <!-- Modal Body (Form Inputs) -->
       <div class="p-5 overflow-y-auto space-y-4 text-xs flex-1">
         
-        <!-- Share Link Banner inside Form -->
-        <div class="p-3 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200/90 flex items-center justify-between gap-2.5">
-          <div class="flex items-center gap-2 min-w-0">
-            <div class="w-8 h-8 rounded-xl bg-[#25D366] text-white flex items-center justify-center shrink-0 shadow-xs">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
-            </div>
-            <div class="min-w-0">
-              <p class="font-bold text-[11px] text-slate-800 leading-tight">Mau rekan pensiunan mengisi data sendiri?</p>
-              <p class="text-[10px] text-emerald-700 leading-tight">Bagikan link formulir ini via WhatsApp</p>
-            </div>
-          </div>
-          <button type="button" onclick="openShareLinkModal()" class="px-2.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] shrink-0 transition-colors flex items-center gap-1 shadow-xs">
-            <span>Share Link</span>
-            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-          </button>
-        </div>
 
         <!-- Foto Upload / Camera -->
         <div>
@@ -959,119 +904,6 @@
     </div>
   </div>
 
-  <!-- ================= MODAL SHARE LINK VIA WHATSAPP ================= -->
-  <div id="modalShareWhatsApp" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 flex items-end md:items-center justify-center p-0 md:p-4 hidden transition-opacity duration-200">
-    <div class="bg-white w-full md:max-w-md rounded-t-[32px] md:rounded-3xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-200">
-      
-      <!-- Header -->
-      <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-700 text-white">
-        <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center shadow-md shrink-0">
-            <svg class="w-6 h-6 text-[#25D366] fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
-          </div>
-          <div>
-            <h3 class="font-extrabold text-sm text-white">Share Link Lembar Data Alumni</h3>
-            <p class="text-[11px] text-emerald-100">Kirim ke WhatsApp rekan pensiunan AAL</p>
-          </div>
-        </div>
-        <button onclick="closeShareLinkModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-
-      <!-- Body -->
-      <div class="p-5 overflow-y-auto space-y-4 text-xs flex-1">
-        
-        <!-- Box Link yang Dibagikan -->
-        <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-          <div class="flex items-center justify-between">
-            <label class="block font-bold text-slate-700 text-[11px] flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-              <span>Link Formulir yang Akan Dibagikan:</span>
-            </label>
-            <span class="text-[10px] text-emerald-700 bg-emerald-100 font-semibold px-2 py-0.5 rounded-full">Aktif (SQL)</span>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <input type="text" id="shareUrlInput" oninput="updateShareUrlFromInput()" class="flex-1 px-3 py-2 text-xs bg-white border border-slate-300 rounded-xl font-mono text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500" placeholder="http://...">
-            <button onclick="copyShareUrlOnly()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 active:scale-95 text-white font-bold text-[11px] shrink-0 transition-colors flex items-center gap-1">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-              <span>Salin Link</span>
-            </button>
-          </div>
-          <p class="text-[10px] text-slate-500 leading-tight">Link ini otomatis mendeteksi URL server Laravel atau dapat disesuaikan dengan domain online Anda.</p>
-        </div>
-
-        <!-- Opsi Kirim ke Nomor Tertentu -->
-        <div class="p-3.5 rounded-2xl bg-emerald-50/60 border border-emerald-200/80 space-y-2">
-          <label class="block font-bold text-slate-800 text-[11px] flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-            <span>Kirim Langsung ke Nomor WA Rekan (Opsional):</span>
-          </label>
-          <div class="flex items-center gap-2">
-            <input type="tel" id="directWANumberInput" placeholder="Contoh: 08123456789 atau 62812..." class="flex-1 px-3 py-2 text-xs bg-white border border-emerald-300 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500">
-            <button onclick="sendToSpecificWANumber()" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-[11px] shrink-0 transition-colors flex items-center gap-1 shadow-xs">
-              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
-              <span>Kirim ke Nomor Ini</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Pratinjau Teks WhatsApp Chat Bubble -->
-        <div>
-          <div class="flex items-center justify-between mb-1.5">
-            <span class="font-bold text-slate-700 text-[11px]">Pratinjau Pesan WhatsApp:</span>
-            <span class="text-[10px] text-slate-400">Format Resmi Paguyuban</span>
-          </div>
-
-          <div class="p-3.5 rounded-2xl bg-[#E7FFDB] border border-[#BCE8AC] text-slate-800 text-[11px] shadow-inner relative leading-relaxed font-sans select-text">
-            <div class="font-bold text-emerald-900 border-b border-emerald-300/60 pb-1 mb-1.5 flex items-center justify-between">
-              <span>PAGUYUBAN PURNA BAKTI ASTRA AGRO LESTARI (AAL)</span>
-              <span class="text-[9px] text-emerald-700">WhatsApp</span>
-            </div>
-            <p class="italic text-emerald-800 font-semibold mb-1.5">🌿 Satu Hati • Satu Rasa • Alumni AAL 🌿</p>
-            <p class="mb-1">Yth. Bapak/Ibu Rekan Pensiunan AAL,</p>
-            <p class="mb-2">Dalam rangka silaturahmi & pemutakhiran data paguyuban, kami mengundang Bapak/Ibu untuk melengkapi <b>Lembar Data Warga Alumni AAL</b> melalui tautan formulir berikut:</p>
-            <p class="p-2 rounded-xl bg-white/80 border border-emerald-300 font-mono text-[11px] text-blue-600 underline font-semibold break-all mb-2" id="previewShareLinkText">http://localhost:8000/alumni</p>
-            <div class="text-[10px] text-slate-600 space-y-0.5 mb-2 pl-1 border-l-2 border-emerald-400">
-              <p>📌 <b>Data yang dicatat meliputi:</b></p>
-              <p>• Foto Profil (Bisa Zoom 2x & Simpan)</p>
-              <p>• Data Diri & Alamat Sekarang</p>
-              <p>• Devisi & Perusahaan (41 Entitas AAL)</p>
-              <p>• Rentang Masa Kerja & Mantan Atasan</p>
-              <p>• Tahun Pensiun, Kegiatan Saat Ini & Cucu</p>
-            </div>
-            <p class="text-[10px] text-slate-600">Mohon bantuannya membagikan ke rekan purnabakti AAL lainnya. Terima kasih! 🙏</p>
-            <div class="flex justify-end items-center gap-1 text-[9px] text-slate-400 mt-1">
-              <span>Sekarang</span>
-              <svg class="w-3 h-3 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7m-14 4l4 4L19 11"/></svg>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Footer Buttons -->
-      <div class="p-4 bg-slate-50 border-t border-slate-100 space-y-2">
-        <button onclick="shareLinkToWhatsAppDirect()" class="w-full py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20ba59] active:scale-[0.98] text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-700/25 transition-all">
-          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
-          <span>Buka WhatsApp & Bagikan Sekarang</span>
-        </button>
-
-        <div class="grid grid-cols-2 gap-2">
-          <button onclick="copyInvitationText()" class="py-2.5 px-3 rounded-xl bg-white hover:bg-slate-100 active:scale-[0.98] text-slate-700 font-bold text-xs border border-slate-300 flex items-center justify-center gap-1.5 transition-all">
-            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            <span>Salin Seluruh Teks</span>
-          </button>
-          <button onclick="copyShareUrlOnly()" class="py-2.5 px-3 rounded-xl bg-white hover:bg-slate-100 active:scale-[0.98] text-slate-700 font-bold text-xs border border-slate-300 flex items-center justify-center gap-1.5 transition-all">
-            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-            <span>Salin Link Saja</span>
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </div>
 
   <!-- Toast Notification -->
   <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-2.5 rounded-full text-xs font-semibold shadow-2xl flex items-center gap-2 z-50 pointer-events-none opacity-0 transition-opacity duration-300">
@@ -1800,118 +1632,46 @@
       }, 2500);
     }
 
-    // ================= WHATSAPP SHARE TO ALUMNI =================
+    // ================= SHARE LINK =================
     function getActiveShareUrl() {
-      const saved = localStorage.getItem('aal_custom_share_link');
-      if (saved && saved.trim()) return saved.trim();
       if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
         return window.location.href.split('#')[0];
       }
       return 'http://localhost:8000/alumni';
     }
 
-    function openShareLinkModal() {
-      const modal = document.getElementById('modalShareWhatsApp');
-      if (!modal) return;
-      const url = getActiveShareUrl();
-      const input = document.getElementById('shareUrlInput');
-      const preview = document.getElementById('previewShareLinkText');
-      if (input) input.value = url;
-      if (preview) preview.innerText = url;
-      modal.classList.remove('hidden');
-    }
+    async function shareLink() {
+      const shareUrl = getActiveShareUrl();
+      const shareData = {
+        title: 'Lembar Data Alumni AAL',
+        text: 'Formulir Lembar Data Warga Paguyuban Pensiunan Astra Agro Lestari (AAL)',
+        url: shareUrl
+      };
 
-    function closeShareLinkModal() {
-      const modal = document.getElementById('modalShareWhatsApp');
-      if (modal) modal.classList.add('hidden');
-    }
-
-    function updateShareUrlFromInput() {
-      const input = document.getElementById('shareUrlInput');
-      const preview = document.getElementById('previewShareLinkText');
-      if (!input) return;
-      const val = input.value.trim() || getActiveShareUrl();
-      if (preview) preview.innerText = val;
-      if (input.value.trim()) {
-        localStorage.setItem('aal_custom_share_link', input.value.trim());
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+          return;
+        } catch (err) {
+          if (err.name === 'AbortError') return; // Dialog share ditutup pengguna
+        }
       }
-    }
 
-    function getAlumniInviteMessage() {
-      const pageUrl = getActiveShareUrl();
-
-      return `*PAGUYUBAN PURNA BAKTI ASTRA AGRO LESTARI (AAL)*
-🌿 *Satu Hati • Satu Rasa • Alumni AAL* 🌿
-
-Yth. Bapak/Ibu Rekan Pensiunan AAL,
-
-Dalam rangka mempererat tali silaturahmi & pemutakhiran data paguyuban, kami mengundang Bapak/Ibu untuk melengkapi *Lembar Data Warga Alumni AAL* melalui tautan formulir berikut:
-
-👉 ${pageUrl}
-
-📌 *Data yang dicatat meliputi:*
-1️⃣ Foto Profil Alumni (Bisa Zoom 2x & Simpan)
-2️⃣ Data Diri: Nama Lengkap & Tanggal Lahir
-3️⃣ Alamat Domisili Sekarang & Nomor WhatsApp
-4️⃣ Devisi & Perusahaan (41 Entitas AAL / Head Office / Site PT)
-5️⃣ Rentang Waktu Bekerja & Mantan Atasan
-6️⃣ Tahun Pensiun & Kegiatan Saat Ini
-7️⃣ Informasi Cucu (Laki-laki & Perempuan)
-
-Mohon bantuannya untuk membagikan tautan ini ke rekan-rekan alumni purna bakti AAL lainnya. Terima kasih atas kebersamaan dan perhatiannya! 🙏`;
-    }
-
-    function shareLinkToWhatsAppDirect() {
-      const message = getAlumniInviteMessage();
-      const encoded = encodeURIComponent(message);
-      const waUrl = `https://api.whatsapp.com/send?text=${encoded}`;
-
-      if (navigator.share && (window.location.protocol === 'http:' || window.location.protocol === 'https:')) {
-        navigator.share({
-          title: 'Lembar Data Alumni AAL',
-          text: message,
-          url: getActiveShareUrl()
-        }).catch(() => {
-          window.open(waUrl, '_blank');
-        });
-      } else {
-        window.open(waUrl, '_blank');
+      // Fallback jika Web Share API tidak didukung (misal browser desktop / offline)
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+          showToast('Link formulir berhasil disalin ke clipboard!');
+          return;
+        } catch (e) {}
       }
-      showToast('Membuka WhatsApp untuk berbagi link...');
+      copyTextToClipboard(shareUrl, 'Link formulir berhasil disalin ke clipboard!');
     }
 
-    function shareToWhatsAppAlumni() {
-      openShareLinkModal();
-    }
-
-    function copyShareUrlOnly() {
-      const url = getActiveShareUrl();
-      copyTextToClipboard(url, 'Link formulir berhasil disalin ke clipboard!');
-    }
-
-    function copyInvitationText() {
-      const message = getAlumniInviteMessage();
-      copyTextToClipboard(message, 'Teks undangan WhatsApp berhasil disalin!');
-    }
-
-    function sendToSpecificWANumber() {
-      const input = document.getElementById('directWANumberInput');
-      if (!input || !input.value.trim()) {
-        showToast('Masukkan nomor WhatsApp rekan terlebih dahulu');
-        if (input) input.focus();
-        return;
-      }
-      let phone = input.value.replace(/[^0-9]/g, '');
-      if (phone.startsWith('0')) {
-        phone = '62' + phone.substring(1);
-      } else if (!phone.startsWith('62')) {
-        phone = '62' + phone;
-      }
-      const message = getAlumniInviteMessage();
-      const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-      window.open(waUrl, '_blank');
-      showToast(`Membuka chat WhatsApp ke +${phone}...`);
-    }
+    // Alias fungsi untuk kompatibilitas
+    const openShareLinkModal = shareLink;
+    const shareToWhatsAppAlumni = shareLink;
+    const copyShareUrlOnly = shareLink;
 
     function copyTextToClipboard(text, successMsg) {
       if (navigator.clipboard && navigator.clipboard.writeText) {
