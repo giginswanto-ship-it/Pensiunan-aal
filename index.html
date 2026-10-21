@@ -1,0 +1,2293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Lembar Data Alumni AAL - Mobile View</title>
+  <link rel="icon" type="image/png" href="logo-aal.png">
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#15803d',
+              600: '#166534',
+              700: '#14532d',
+              800: '#0f3f22',
+              900: '#0a2a16',
+              accent: '#eab308'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Android Frame Simulation for Desktop */
+    body {
+      background-color: #0f172a;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: white !important;
+        padding: 0 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .phone-container {
+        border: none !important;
+        box-shadow: none !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        border-radius: 0 !important;
+        height: auto !important;
+      }
+      .android-status-bar, .android-nav-bar {
+        display: none !important;
+      }
+      .page-sheet {
+        box-shadow: none !important;
+        border: 1px solid #e2e8f0 !important;
+      }
+    }
+
+    /* Wave effect */
+    .header-gradient {
+      background: linear-gradient(135deg, #0d5c2e 0%, #15803d 50%, #1e3a2f 100%);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-0 md:p-6 text-slate-800">
+
+  <!-- Desktop Control Bar (Only shown on desktop) -->
+  <div class="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 backdrop-blur-md text-white px-4 py-2 rounded-full shadow-2xl border border-slate-700 hidden md:flex items-center gap-3 text-xs no-print">
+    <span class="flex items-center gap-1.5 font-medium text-emerald-400">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      Tampilan HP Android
+    </span>
+    <span class="text-slate-500">|</span>
+    <button onclick="togglePhoneFrame()" id="btnFrameToggle" class="hover:text-emerald-300 transition-colors flex items-center gap-1">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+      <span>Toggle Frame HP</span>
+    </button>
+    <span class="text-slate-500">|</span>
+    <button onclick="window.print()" class="hover:text-emerald-300 transition-colors flex items-center gap-1">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+      <span>Cetak / PDF</span>
+    </button>
+  </div>
+
+  <!-- Android Phone Mockup Wrapper -->
+  <div id="phoneWrapper" class="phone-container w-full md:max-w-[420px] h-screen md:h-[880px] bg-slate-100 md:rounded-[48px] overflow-hidden md:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] md:border-[10px] md:border-slate-800 flex flex-col relative transition-all duration-300">
+    
+    <!-- Android Status Bar -->
+    <div class="android-status-bar h-7 bg-brand-900 text-white flex justify-between items-center px-6 text-xs font-semibold select-none z-30 shrink-0">
+      <span id="currentTime">12:30</span>
+      <!-- Camera Punch hole (aesthetic) -->
+      <div class="hidden md:block w-3.5 h-3.5 bg-black rounded-full border border-slate-700"></div>
+      <div class="flex items-center gap-2">
+        <!-- Signal Icon -->
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+        <!-- Wifi Icon -->
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4zm0 3.5c3.55 0 6.78 1.41 9.17 3.71L12 19.38 2.83 11.21C5.22 8.91 8.45 7.5 12 7.5z"/></svg>
+        <!-- Battery Icon -->
+        <div class="flex items-center gap-0.5">
+          <span class="text-[10px]">98%</span>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M16 4h-2V2h-4v2H8a2 2 0 00-2 2v14a2 2 0 002 2h8a2 2 0 002-2V6a2 2 0 00-2-2z"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top App Bar / Header -->
+    <header class="header-gradient text-white px-5 pt-3 pb-5 shrink-0 shadow-md relative z-20">
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-2xl bg-white p-1 flex items-center justify-center shadow-md border border-white/20 shrink-0">
+            <img src="logo-aal.png" alt="Logo Astra Agro Lestari" class="w-full h-full object-contain">
+          </div>
+          <div>
+            <h1 class="text-base font-bold tracking-tight leading-tight">LEMBAR DATA ALUMNI</h1>
+            <p class="text-[11px] text-emerald-200/90 font-medium">Paguyuban Pensiunan Warga AAL</p>
+          </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-1.5 no-print">
+          <!-- Share Link WhatsApp Button -->
+          <button onclick="openShareLinkModal()" title="Share Link WA ke Pensiunan Lain" class="px-2.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 transition-all text-white font-bold text-[11px] flex items-center gap-1.5 shadow-sm border border-emerald-300/40">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
+            <span class="hidden sm:inline">Share Link WA</span>
+          </button>
+          <button onclick="switchTab('list')" title="Daftar Alumni" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 transition-all text-white border border-white/10">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+          </button>
+          <button onclick="openFormModal()" title="Edit Data" class="p-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold active:scale-95 transition-all shadow-md">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Nav Tabs -->
+      <div class="flex bg-black/25 p-1 rounded-xl text-xs font-semibold backdrop-blur-sm no-print">
+        <button id="tabCardBtn" onclick="switchTab('card')" class="flex-1 py-1.5 rounded-lg text-center transition-all bg-white text-slate-900 shadow">
+          Kartu Alumni
+        </button>
+        <button id="tabListBtn" onclick="switchTab('list')" class="flex-1 py-1.5 rounded-lg text-center transition-all text-white/80 hover:text-white">
+          Daftar Warga (<span id="totalAlumniCount">1</span>)
+        </button>
+      </div>
+    </header>
+
+    <!-- Scrollable Content Area -->
+    <main class="flex-1 overflow-y-auto px-4 py-4 space-y-4 relative z-10" id="mainScrollArea">
+      
+      <!-- ================= VIEW 1: LEMBAR KARTU DATA ALUMNI ================= -->
+      <section id="viewCard" class="space-y-4">
+        
+        <!-- Main Alumni Profile Card -->
+        <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 relative overflow-hidden page-sheet">
+          <!-- Decorative Top Accent Banner -->
+          <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-emerald-600 via-teal-500 to-amber-500"></div>
+          
+          <!-- Kop / ID Card Badge Header with Astra Agro Lestari Logo -->
+          <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100 text-xs">
+            <div class="flex items-center gap-2.5">
+              <img src="logo-aal.png" alt="Logo Astra Agro Lestari" class="w-8 h-8 object-contain shrink-0">
+              <div>
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full font-bold bg-emerald-50 text-emerald-800 border border-emerald-200/60 text-[11px]">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+                  ID: <span id="displayId">AAL-1994-082</span>
+                </span>
+              </div>
+            </div>
+            <span class="inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200/60 shrink-0">
+              <svg class="w-3 h-3 text-amber-600" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              Alumni AAL
+            </span>
+          </div>
+
+          <!-- Photo and Primary Info Header -->
+          <div class="flex flex-col items-center text-center pb-4 border-b border-slate-100">
+            <!-- 2x Larger Photo Container (w-56 h-56: 224px x 224px) -->
+            <div class="relative group mb-3">
+              <!-- Clickable Profile Photo with Zoom Cursor -->
+              <div onclick="openPhotoZoomModal()" class="w-56 h-56 rounded-3xl overflow-hidden border-4 border-white shadow-xl bg-slate-100 ring-2 ring-emerald-500/25 cursor-zoom-in relative group/img transition-transform active:scale-[0.98]">
+                <img id="displayPhoto" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Foto Profil Alumni" class="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-300">
+                
+                <!-- Overlay Hover/Tap Hint: Zoom & Save -->
+                <div class="absolute inset-x-0 bottom-0 py-2.5 px-2 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-center justify-center gap-1.5 text-white text-[11px] font-semibold backdrop-blur-[2px]">
+                  <svg class="w-3.5 h-3.5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+                  <span>Ketuk untuk Zoom & Simpan</span>
+                </div>
+              </div>
+
+              <!-- Quick Action Floating Buttons -->
+              <div class="absolute -bottom-2.5 inset-x-0 flex items-center justify-center gap-2 no-print">
+                <button onclick="openPhotoZoomModal()" class="bg-slate-900/90 hover:bg-slate-900 text-white px-2.5 py-1.5 rounded-xl shadow-lg border border-slate-700 text-[11px] font-semibold flex items-center gap-1 active:scale-95 transition-all" title="Perbesar / Zoom Foto">
+                  <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+                  <span>Zoom</span>
+                </button>
+                <button onclick="downloadCurrentPhoto()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1.5 rounded-xl shadow-lg border border-emerald-500 text-[11px] font-semibold flex items-center gap-1 active:scale-95 transition-all" title="Simpan / Download Foto">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                  <span>Simpan</span>
+                </button>
+                <button onclick="document.getElementById('photoInput').click()" class="bg-white hover:bg-slate-100 text-slate-700 px-2.5 py-1.5 rounded-xl shadow-lg border border-slate-200 text-[11px] font-semibold flex items-center gap-1 active:scale-95 transition-all" title="Ganti Foto">
+                  <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                  <span>Ganti</span>
+                </button>
+              </div>
+            </div>
+            
+            <div class="mt-3">
+              <h2 id="displayName" class="text-xl font-extrabold text-slate-900 tracking-tight">H. Ir. Bambang Soeprapto, M.M.</h2>
+              <p id="displayPT" class="text-xs font-semibold text-emerald-700 mt-0.5">PT Astra Agro Lestari Tbk</p>
+              <div class="mt-2 flex flex-wrap items-center justify-center gap-1.5 text-xs font-medium">
+                <span id="displayBadgePenempatanHeader" class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold">
+                  Site: PT SLS
+                </span>
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[11px] font-bold">
+                  Devisi: <strong id="displayDevisiBadge" class="text-emerald-900">Divisi 2</strong>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick WhatsApp Direct Action Button (Very popular for mobile users) -->
+          <div class="py-3.5 border-b border-slate-100 no-print">
+            <a id="waDirectButton" href="https://wa.me/6281234567890" target="_blank" class="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] transition-all text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-sm shadow-emerald-600/30">
+              <!-- WhatsApp SVG -->
+              <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.696c1.004.577 1.764.793 2.806.793 3.182 0 5.769-2.586 5.769-5.766.001-3.182-2.585-5.766-5.769-5.766zm9.969 5.766c0 5.514-4.486 10-10 10-1.823 0-3.532-.493-5.01-1.353l-5.99 1.57 1.6-5.845c-.943-1.534-1.48-3.327-1.48-5.239 0-5.514 4.486-10 10-10 5.514 0 10 4.486 10 10z"/></svg>
+              <span>Hubungi via WhatsApp</span>
+            </a>
+          </div>
+
+          <!-- Detailed Field Information List -->
+          <div class="py-2 space-y-3.5 text-xs">
+            
+            <!-- Tanggal Lahir -->
+            <div class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 transition-colors">
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 border border-emerald-100">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Tanggal Lahir</p>
+                <p id="displayTglLahir" class="font-bold text-slate-800 text-sm">17 Agustus 1968</p>
+                <p id="displayUsia" class="text-[11px] text-slate-500 font-medium">(Usia: 58 Tahun)</p>
+              </div>
+            </div>
+
+            <!-- Alamat Sekarang -->
+            <div class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 transition-colors">
+              <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center shrink-0 border border-blue-100">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Alamat Sekarang</p>
+                <p id="displayAlamat" class="font-semibold text-slate-800 leading-snug">Jl. Flamboyan Indah No. 45, RT 03 / RW 07, Pekanbaru, Riau</p>
+              </div>
+            </div>
+
+            <!-- No Whatsapp -->
+            <div class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 transition-colors">
+              <div class="w-8 h-8 rounded-lg bg-green-50 text-green-700 flex items-center justify-center shrink-0 border border-green-100">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-[10px] text-slate-400 font-medium uppercase tracking-wider">No. WhatsApp</p>
+                <p id="displayWA" class="font-bold text-slate-800 text-sm">0812-3456-7890</p>
+              </div>
+            </div>
+
+            <!-- Devisi & Perusahaan (Lengkap: Nama Perusahaan, Devisi Berapa, Head Office, Site - Nama PT) -->
+            <div class="p-3 rounded-2xl bg-gradient-to-br from-amber-50/70 via-white to-emerald-50/30 border border-amber-200/70 space-y-2.5">
+              <!-- Baris 1: Nama Perusahaan & Badge Penempatan -->
+              <div class="flex items-start justify-between gap-2 pb-2 border-b border-amber-200/50">
+                <div class="flex items-start gap-2.5">
+                  <div class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                  </div>
+                  <div>
+                    <p class="text-[10px] text-amber-800 font-bold uppercase tracking-wider">Nama Perusahaan</p>
+                    <h4 id="displayNamaPerusahaan" class="font-extrabold text-slate-900 text-sm leading-tight">PT Astra Agro Lestari Tbk</h4>
+                  </div>
+                </div>
+                <!-- Badge Lokasi: Head Office vs Site -->
+                <span id="displayBadgeLokasi" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 border border-blue-200 shrink-0">
+                  Head Office
+                </span>
+              </div>
+
+              <!-- Baris 2: Devisi Berapa & Site (Nama PT) -->
+              <div class="grid grid-cols-2 gap-2 text-xs">
+                <!-- Devisi berapa -->
+                <div class="bg-white/90 p-2.5 rounded-xl border border-slate-200/80 shadow-xs">
+                  <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Devisi Berapa</p>
+                  <p id="displayDevisiBerapa" class="font-bold text-emerald-800 text-xs mt-0.5">Divisi 2</p>
+                </div>
+                <!-- Site (Cantumkan Nama PT) / Head Office -->
+                <div class="bg-white/90 p-2.5 rounded-xl border border-slate-200/80 shadow-xs">
+                  <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider" id="displayLabelPenempatan">Site (Nama PT)</p>
+                  <p id="displaySiteDetail" class="font-bold text-slate-800 text-xs mt-0.5">Site PT SLS</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Rentang Waktu Bekerja di AAL -->
+            <div class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 transition-colors">
+              <div class="w-8 h-8 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center shrink-0 border border-purple-100">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Rentang Waktu Bekerja di AAL</p>
+                <p id="displayRentangKerja" class="font-bold text-slate-800 text-sm">1994 s/d 2024</p>
+                <p id="displayMasaKerja" class="text-[11px] text-purple-700 font-semibold">Masa Pengabdian: ~30 Tahun</p>
+              </div>
+            </div>
+
+            <!-- Mantan Atasan -->
+            <div class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 transition-colors">
+              <div class="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center shrink-0 border border-teal-100">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Mantan Atasan Terakhir</p>
+                <p id="displayMantanAtasan" class="font-bold text-slate-800 text-sm">Dr. Ir. Hendra Gunawan (VP Plantation)</p>
+              </div>
+            </div>
+
+            <!-- Tahun Pensiun -->
+            <div class="flex items-start gap-3 p-2.5 rounded-xl bg-gradient-to-r from-amber-50/70 to-orange-50/70 border border-amber-200/50">
+              <div class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-[10px] text-amber-800 font-semibold uppercase tracking-wider">Tahun Pensiun</p>
+                <p id="displayTahunPensiun" class="font-extrabold text-amber-900 text-base">Tahun 2024</p>
+                <p class="text-[10px] text-amber-700">Status: Purna Bakti Terhormat</p>
+              </div>
+            </div>
+
+            <!-- Kegiatan Saat Ini -->
+            <div class="flex items-start gap-3 p-2.5 rounded-xl bg-gradient-to-r from-emerald-50/80 to-teal-50/80 border border-emerald-200/60">
+              <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-[10px] text-emerald-800 font-bold uppercase tracking-wider">Kegiatan Saat Ini</p>
+                <p id="displayKegiatanSaatIni" class="font-bold text-slate-800 text-xs mt-0.5 leading-snug">Menikmati masa pensiun & berkebun mandiri</p>
+              </div>
+            </div>
+
+            <!-- Informasi Cucu / Penerus Generasi -->
+            <div class="p-3 rounded-2xl bg-gradient-to-r from-sky-50/80 via-blue-50/70 to-indigo-50/80 border border-sky-200/60 shadow-xs">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-sky-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                  </div>
+                  <div>
+                    <p class="text-[10px] text-sky-800 font-bold uppercase tracking-wider">Keluarga & Cucu</p>
+                    <p class="text-xs font-bold text-slate-800">Total: <span id="displayJumlahCucu" class="text-sky-700 font-extrabold text-sm">5</span> Cucu</p>
+                  </div>
+                </div>
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-sky-100 text-sky-800 border border-sky-200">
+                  Penerus Generasi
+                </span>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-xs pt-0.5">
+                <div class="bg-white/90 p-2 rounded-xl border border-sky-100/80 flex items-center gap-2">
+                  <span class="text-base">👦</span>
+                  <div class="min-w-0">
+                    <p class="text-[10px] text-slate-400 font-semibold uppercase">Cucu Laki-laki</p>
+                    <p id="displayCucuLaki" class="font-bold text-sky-900 text-xs truncate">3 Orang</p>
+                  </div>
+                </div>
+                <div class="bg-white/90 p-2 rounded-xl border border-sky-100/80 flex items-center gap-2">
+                  <span class="text-base">👧</span>
+                  <div class="min-w-0">
+                    <p class="text-[10px] text-slate-400 font-semibold uppercase">Cucu Perempuan</p>
+                    <p id="displayCucuPerempuan" class="font-bold text-rose-700 text-xs truncate">2 Orang</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Card Footer Watermark -->
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-400">
+            <div class="flex items-center gap-1.5">
+              <img src="logo-aal.png" alt="AAL" class="w-4 h-4 object-contain opacity-80">
+              <span>Satu Hati • Satu Rasa • Alumni AAL</span>
+            </div>
+            <span id="docGeneratedDate">Okt 2026</span>
+          </div>
+        </div>
+
+        <!-- WhatsApp Share Banner / Button Ke Pensiunan Lain -->
+        <div class="no-print p-4 rounded-3xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-700/25 border border-emerald-400/40 relative overflow-hidden">
+          <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+          <div class="flex items-start justify-between gap-3 relative z-10">
+            <div class="min-w-0 flex-1">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/20 text-white mb-2 border border-white/20">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-200 animate-pulse"></span>
+                Silaturahmi Purnabakti
+              </span>
+              <h4 class="font-extrabold text-sm text-white leading-snug">Share Link Isi Data via WhatsApp</h4>
+              <p class="text-[11px] text-emerald-100 mt-1 leading-relaxed">Bagikan link lembar data ini ke WhatsApp grup alumni atau langsung ke rekan purnabakti AAL untuk pengisian mandiri.</p>
+            </div>
+            <div class="w-11 h-11 rounded-2xl bg-white text-[#25D366] flex items-center justify-center shrink-0 shadow-md">
+              <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-5 gap-2 mt-3.5 relative z-10">
+            <button onclick="openShareLinkModal()" class="col-span-3 py-2.5 px-3 rounded-xl bg-white hover:bg-emerald-50 active:scale-[0.98] text-emerald-800 font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all">
+              <svg class="w-4 h-4 text-[#25D366] fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
+              <span>Share Link WA</span>
+            </button>
+            <button onclick="copyShareUrlOnly()" class="col-span-2 py-2.5 px-2 rounded-xl bg-emerald-800/80 hover:bg-emerald-800 active:scale-[0.98] text-white font-bold text-xs flex items-center justify-center gap-1 transition-all border border-white/20" title="Salin Link Saja">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+              <span>Salin Link</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Floating Action Bar for Quick Actions -->
+        <div class="grid grid-cols-2 gap-2.5 no-print">
+          <button onclick="openFormModal()" class="py-3 px-4 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 shadow-sm font-semibold text-slate-700 text-xs flex items-center justify-center gap-2 active:scale-95 transition-all">
+            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+            <span>Ubah Data Ini</span>
+          </button>
+          <button onclick="prepareNewAlumni()" class="py-3 px-4 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white shadow-sm font-semibold text-xs flex items-center justify-center gap-2 active:scale-95 transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+            <span>Tambah Warga Baru</span>
+          </button>
+        </div>
+
+      </section>
+
+      <!-- ================= VIEW 2: DAFTAR WARGA ALUMNI ================= -->
+      <section id="viewList" class="space-y-3 hidden">
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200/80">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-bold text-slate-800 text-sm">Direktori Warga Alumni AAL</h3>
+            <div class="flex items-center gap-1.5">
+              <button onclick="openShareLinkModal()" class="text-xs bg-[#25D366]/15 hover:bg-[#25D366]/25 text-emerald-800 font-bold px-2.5 py-1.5 rounded-lg border border-[#25D366]/40 flex items-center gap-1 transition-colors" title="Share Link Isi Data via WhatsApp">
+                <svg class="w-3.5 h-3.5 fill-current text-[#25D366]" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
+                <span>Share Link WA</span>
+              </button>
+              <button onclick="prepareNewAlumni()" class="text-xs bg-brand-50 hover:bg-brand-100 text-brand-700 font-semibold px-2.5 py-1.5 rounded-lg border border-brand-200 flex items-center gap-1">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Tambah
+              </button>
+            </div>
+          </div>
+
+          <!-- Corporate Directory Shortcut Banner -->
+          <div class="mb-3 p-2.5 rounded-xl bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border border-emerald-200/80 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2 min-w-0">
+              <img src="logo-aal.png" alt="AAL" class="w-6 h-6 object-contain shrink-0">
+              <div class="min-w-0">
+                <p class="font-bold text-[11px] text-slate-800 truncate">41 Entitas Perusahaan AAL</p>
+                <p class="text-[10px] text-emerald-700 truncate">Sumatra • Kalimantan • Sulawesi • Hilirisasi</p>
+              </div>
+            </div>
+            <button onclick="openAALCompanySelector()" class="px-2.5 py-1 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-[10px] shrink-0 shadow-xs flex items-center gap-1 transition-colors">
+              <span>Lihat Entitas</span>
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+
+          <!-- Search Input -->
+          <div class="relative mb-3">
+            <input type="text" id="searchInput" onkeyup="filterAlumniList()" placeholder="Cari nama, devisi, atau kota..." class="w-full text-xs pl-8 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all">
+            <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+
+          <!-- Alumni Cards List Container -->
+          <div id="alumniListContainer" class="space-y-2.5 max-h-[500px] overflow-y-auto pr-1">
+            <!-- Dynamic Items will be rendered here -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Floating Quick Share Link WA Button (Mobile Android) -->
+    <button onclick="openShareLinkModal()" class="absolute bottom-12 right-4 z-30 px-3.5 py-2 rounded-full bg-[#25D366] hover:bg-[#20bd5a] active:scale-95 text-white font-bold text-[11px] flex items-center gap-1.5 shadow-lg shadow-emerald-950/40 border border-white/30 transition-transform duration-200 no-print" title="Share Link Isi Data via WhatsApp">
+      <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
+      <span>Share Link WA</span>
+    </button>
+
+    <!-- Bottom Android Navigation Bar (Soft Keys simulation) -->
+    <div class="android-nav-bar h-10 bg-slate-900 flex items-center justify-around px-12 text-slate-400 select-none shrink-0 no-print">
+      <!-- Back button -->
+      <button onclick="switchTab('card')" class="p-1 hover:text-white transition-colors" title="Kembali">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <!-- Home button -->
+      <button onclick="switchTab('card')" class="p-1 hover:text-white transition-colors" title="Home">
+        <div class="w-3.5 h-3.5 rounded-full border-2 border-current"></div>
+      </button>
+      <!-- Recent apps button -->
+      <button onclick="switchTab('list')" class="p-1 hover:text-white transition-colors" title="Daftar Alumni">
+        <div class="w-3.5 h-3.5 rounded-[3px] border-2 border-current"></div>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ================= MODAL FORM INPUT / EDIT DATA ALUMNI ================= -->
+  <div id="formModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-end md:items-center justify-center p-0 md:p-4 hidden transition-opacity duration-200">
+    <div class="bg-white w-full md:max-w-md rounded-t-[32px] md:rounded-3xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-200">
+      
+      <!-- Modal Header -->
+      <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center border border-slate-200 shadow-xs shrink-0">
+            <img src="logo-aal.png" alt="Logo AAL" class="w-full h-full object-contain">
+          </div>
+          <div>
+            <h3 id="formModalTitle" class="font-bold text-slate-800 text-sm">Formulir Lembar Data Alumni</h3>
+            <p class="text-[11px] text-slate-500">Lengkapi data purna bakti keluarga besar AAL</p>
+          </div>
+        </div>
+        <button onclick="closeFormModal()" class="w-7 h-7 rounded-full bg-slate-200/80 hover:bg-slate-300 flex items-center justify-center text-slate-600 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body (Form Inputs) -->
+      <div class="p-5 overflow-y-auto space-y-4 text-xs flex-1">
+        
+        <!-- Share Link Banner inside Form -->
+        <div class="p-3 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200/90 flex items-center justify-between gap-2.5">
+          <div class="flex items-center gap-2 min-w-0">
+            <div class="w-8 h-8 rounded-xl bg-[#25D366] text-white flex items-center justify-center shrink-0 shadow-xs">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
+            </div>
+            <div class="min-w-0">
+              <p class="font-bold text-[11px] text-slate-800 leading-tight">Mau rekan pensiunan mengisi data sendiri?</p>
+              <p class="text-[10px] text-emerald-700 leading-tight">Bagikan link formulir ini via WhatsApp</p>
+            </div>
+          </div>
+          <button type="button" onclick="openShareLinkModal()" class="px-2.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] shrink-0 transition-colors flex items-center gap-1 shadow-xs">
+            <span>Share Link</span>
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <!-- Foto Upload / Camera -->
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1.5">Foto Alumni</label>
+          <div class="flex items-center gap-3">
+            <div class="w-16 h-16 rounded-xl bg-slate-100 border border-slate-300 overflow-hidden relative shrink-0">
+              <img id="formPhotoPreview" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Preview" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1">
+              <input type="file" id="photoInput" accept="image/*" class="hidden" onchange="handlePhotoUpload(event)">
+              <button type="button" onclick="document.getElementById('photoInput').click()" class="w-full py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-medium border border-slate-200 flex items-center justify-center gap-1.5 transition-colors">
+                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span>Pilih Foto dari Galeri / Kamera</span>
+              </button>
+              <p class="text-[10px] text-slate-400 mt-1">Format: JPG, PNG, WEBP (Bisa langsung pakai kamera HP)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nama Lengkap -->
+        <div>
+          <label for="inputNama" class="block font-semibold text-slate-700 mb-1">Nama Lengkap & Gelar <span class="text-rose-500">*</span></label>
+          <input type="text" id="inputNama" placeholder="Contoh: Ir. Bambang Soeprapto, M.M." class="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all font-medium">
+        </div>
+
+        <!-- Tanggal Lahir -->
+        <div>
+          <label for="inputTglLahir" class="block font-semibold text-slate-700 mb-1">Tanggal Lahir <span class="text-rose-500">*</span></label>
+          <input type="date" id="inputTglLahir" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all font-medium">
+        </div>
+
+        <!-- Alamat Sekarang -->
+        <div>
+          <label for="inputAlamat" class="block font-semibold text-slate-700 mb-1">Alamat Sekarang <span class="text-rose-500">*</span></label>
+          <textarea id="inputAlamat" rows="2" placeholder="Jl. Flamboyan Indah No. 45, Pekanbaru..." class="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all font-medium"></textarea>
+        </div>
+
+        <!-- No Whatsapp -->
+        <div>
+          <label for="inputWA" class="block font-semibold text-slate-700 mb-1">No. WhatsApp <span class="text-rose-500">*</span></label>
+          <div class="relative">
+            <span class="absolute left-3 top-2.5 text-slate-400 font-semibold text-xs">🇮🇩</span>
+            <input type="tel" id="inputWA" placeholder="081234567890" class="w-full pl-8 pr-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all font-medium">
+          </div>
+        </div>
+
+        <!-- Nama Perusahaan -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label for="inputNamaPT" class="block font-semibold text-slate-700">Nama Perusahaan <span class="text-rose-500">*</span></label>
+            <button type="button" onclick="openAALCompanySelector()" class="text-[11px] text-emerald-700 hover:text-emerald-800 font-bold flex items-center gap-1 bg-emerald-50 hover:bg-emerald-100 px-2 py-0.5 rounded-lg border border-emerald-200 transition-colors" title="Lihat dan pilih dari 41 Entitas Anak AAL">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+              <span>Pilih dari 41 Entitas AAL</span>
+            </button>
+          </div>
+          <input type="text" id="inputNamaPT" list="ptSuggestions" onchange="autoSuggestSiteFromPT()" placeholder="PT Astra Agro Lestari Tbk / Entitas Anak" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all font-medium">
+          <datalist id="ptSuggestions">
+            <!-- Holding / Kantor Pusat -->
+            <option value="PT Astra Agro Lestari Tbk">
+            <!-- Wilayah Operasional Sumatra (8 Entitas) -->
+            <option value="PT Sari Lembah Subur">
+            <option value="PT Eka Dura Indonesia">
+            <option value="PT Tunggal Perkasa Plantations">
+            <option value="PT Sawit Asikin Indah">
+            <option value="PT Kimia Tirta Utama">
+            <option value="PT Karya Tanah Subur">
+            <option value="PT Perkebunan Lembah Bhakti">
+            <option value="PT Astra Agro Lestari Mas">
+            <!-- Wilayah Operasional Kalimantan (20 Entitas) -->
+            <option value="PT Agro Menara Rachmat">
+            <option value="PT Bhadra Cemerlang">
+            <option value="PT Cipta Narada Lestari">
+            <option value="PT Gunung Sejahtera Dua Indah">
+            <option value="PT Gunung Sejahtera Yoli Makmur">
+            <option value="PT Gunung Sejahtera Puti Pesona">
+            <option value="PT Gunung Sejahtera Ibu Pertiwi">
+            <option value="PT Karda Multi Sarana">
+            <option value="PT Nirmala Agro Lestari">
+            <option value="PT Pandji Waringin">
+            <option value="PT Persada Dinamika Lestari">
+            <option value="PT Sawit Multi Utama">
+            <option value="PT Sumber Kharisma Persada">
+            <option value="PT Sukses Tani Nusasubur">
+            <option value="PT Borneo Indah Marjaya">
+            <option value="PT Waru Kaltim Plantation">
+            <option value="PT Subur Abadi Plantations">
+            <option value="PT Suryaindah Nusantarapagi">
+            <option value="PT Karya Menara Hijau">
+            <option value="PT Susantri Permai">
+            <!-- Wilayah Operasional Sulawesi (7 Entitas) -->
+            <option value="PT Pasangkayu">
+            <option value="PT Letawa">
+            <option value="PT Mamuang">
+            <option value="PT Surya Raya Lestari">
+            <option value="PT Lestari Tani Teladan">
+            <option value="PT Agro Nusa Abadi">
+            <option value="PT Tamaco Graha Krida">
+            <!-- Pengolahan, Hilirisasi, dan Jasa Penunjang (5 Entitas) -->
+            <option value="PT Tanjung Sarana Lestari">
+            <option value="PT Tanjung Bina Lestari">
+            <option value="PT Kreasijaya Adhikarya">
+            <option value="PT Astra Agro Lestari Palma">
+            <option value="PT AAL Trans Sentosa">
+          </datalist>
+          <p class="text-[10px] text-slate-400 mt-1">Pilih dari 41 entitas anak AAL (Sumatra, Kalimantan, Sulawesi, Hilirisasi) atau ketik manual.</p>
+        </div>
+
+        <!-- Penempatan: Head Office vs Site (Cantumkan Nama PT) -->
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1.5">Penempatan Kerja <span class="text-rose-500">*</span></label>
+          <div class="grid grid-cols-2 gap-2 mb-2">
+            <label class="flex items-center gap-2 p-2.5 border rounded-xl cursor-pointer hover:bg-slate-50 transition-colors bg-white">
+              <input type="radio" name="inputPenempatan" value="Head Office" id="radioHO" onchange="togglePenempatanFields()" class="text-brand-600 focus:ring-brand-500">
+              <span class="text-xs font-semibold text-slate-800">Head Office</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 border rounded-xl cursor-pointer hover:bg-slate-50 transition-colors bg-white">
+              <input type="radio" name="inputPenempatan" value="Site" id="radioSite" checked onchange="togglePenempatanFields()" class="text-brand-600 focus:ring-brand-500">
+              <span class="text-xs font-semibold text-slate-800">Site (Kebun/PKS)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Site (Cantumkan Nama PT) / Keterangan Penempatan -->
+        <div id="containerSitePT">
+          <label for="inputSitePT" class="block font-semibold text-slate-700 mb-1" id="labelSitePT">Site (Cantumkan Nama PT) <span class="text-rose-500">*</span></label>
+          <input type="text" id="inputSitePT" list="sitePtSuggestions" placeholder="Contoh: Site PT Sari Lembah Subur (Pelalawan, Riau)" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all font-medium">
+          <datalist id="sitePtSuggestions">
+            <!-- Sumatra Sites -->
+            <option value="Site PT Sari Lembah Subur (Pelalawan, Riau)">
+            <option value="Site PT Eka Dura Indonesia (Rokan Hulu, Riau)">
+            <option value="Site PT Tunggal Perkasa Plantations (Indragiri Hulu, Riau)">
+            <option value="Site PT Sawit Asikin Indah (Riau)">
+            <option value="Site PT Kimia Tirta Utama (Siak, Riau)">
+            <option value="Site PT Karya Tanah Subur (Aceh Barat, Aceh)">
+            <option value="Site PT Perkebunan Lembah Bhakti (Aceh Singkil, Aceh)">
+            <option value="Site PT Astra Agro Lestari Mas (Jakarta / Sumatra)">
+            <!-- Kalimantan Sites -->
+            <option value="Site PT Agro Menara Rachmat (Kalimantan Tengah)">
+            <option value="Site PT Bhadra Cemerlang (Kalimantan Tengah)">
+            <option value="Site PT Cipta Narada Lestari (Kalimantan Tengah)">
+            <option value="Site PT Gunung Sejahtera Dua Indah (Kotawaringin Barat, Kalteng)">
+            <option value="Site PT Gunung Sejahtera Yoli Makmur (Kotawaringin Barat, Kalteng)">
+            <option value="Site PT Gunung Sejahtera Puti Pesona (Kotawaringin Barat, Kalteng)">
+            <option value="Site PT Gunung Sejahtera Ibu Pertiwi (Kotawaringin Barat, Kalteng)">
+            <option value="Site PT Karda Multi Sarana (Kalimantan Tengah)">
+            <option value="Site PT Nirmala Agro Lestari (Kotawaringin Barat, Kalteng)">
+            <option value="Site PT Pandji Waringin (Kalimantan Tengah)">
+            <option value="Site PT Persada Dinamika Lestari (Kalimantan Tengah)">
+            <option value="Site PT Sawit Multi Utama (Kalimantan Tengah)">
+            <option value="Site PT Sumber Kharisma Persada (Kalimantan Tengah)">
+            <option value="Site PT Sukses Tani Nusasubur (Penajam Paser Utara, Kaltim)">
+            <option value="Site PT Borneo Indah Marjaya (Paser, Kalimantan Timur)">
+            <option value="Site PT Waru Kaltim Plantation (Penajam Paser Utara, Kaltim)">
+            <option value="Site PT Subur Abadi Plantations (Kalimantan Selatan)">
+            <option value="Site PT Suryaindah Nusantarapagi (Kalimantan Selatan)">
+            <option value="Site PT Karya Menara Hijau (Kalimantan Selatan)">
+            <option value="Site PT Susantri Permai (Kalimantan Tengah)">
+            <!-- Sulawesi Sites -->
+            <option value="Site PT Pasangkayu (Pasangkayu, Sulawesi Barat)">
+            <option value="Site PT Letawa (Pasangkayu, Sulawesi Barat)">
+            <option value="Site PT Mamuang (Pasangkayu, Sulawesi Barat)">
+            <option value="Site PT Surya Raya Lestari (Mamuju Tengah, Sulbar)">
+            <option value="Site PT Lestari Tani Teladan (Donggala, Sulawesi Tengah)">
+            <option value="Site PT Agro Nusa Abadi (Morowali Utara, Sulteng)">
+            <option value="Site PT Tamaco Graha Krida (Poso, Sulawesi Tengah)">
+            <!-- Hilirisasi / Pengolahan / Jasa -->
+            <option value="Refinery PT Tanjung Sarana Lestari (Mamuju Utara, Sulbar)">
+            <option value="Kernel Plant PT Tanjung Bina Lestari (Mamuju Utara, Sulbar)">
+            <option value="Refinery PT Kreasijaya Adhikarya (Dumai, Riau)">
+            <option value="Head Office Jakarta (HO) - PT Astra Agro Lestari Tbk">
+            <option value="Pemasaran Minyak Nabati - PT Astra Agro Lestari Palma (Jakarta)">
+            <option value="Logistik CPO - PT AAL Trans Sentosa (Nasional)">
+          </datalist>
+          <p class="text-[10px] text-slate-400 mt-1" id="helperSitePT">Cantumkan nama PT atau unit site kebun/pabrik.</p>
+        </div>
+
+        <!-- Devisi berapa -->
+        <div>
+          <label for="inputDevisi" class="block font-semibold text-slate-700 mb-1">Devisi Berapa <span class="text-rose-500">*</span></label>
+          <input type="text" id="inputDevisi" list="devisiSuggestions" placeholder="Contoh: Divisi 1 / Divisi 2 / Divisi 3..." class="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all font-medium">
+          <datalist id="devisiSuggestions">
+            <option value="Divisi 1">
+            <option value="Divisi 2">
+            <option value="Divisi 3">
+            <option value="Divisi 4">
+            <option value="Divisi 5">
+            <option value="Divisi 1 (Afdeling I)">
+            <option value="Divisi 2 (Afdeling II)">
+            <option value="Divisi 3 (Afdeling III)">
+            <option value="Divisi Pabrik Kelapa Sawit (Mill)">
+            <option value="Divisi Workshop & Teknik">
+            <option value="Divisi Agronomi & Research">
+            <option value="Divisi Human Capital (HO)">
+            <option value="Divisi Finance & Accounting (HO)">
+          </datalist>
+        </div>
+
+        <!-- Rentang Waktu Bekerja di AAL -->
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label for="inputTahunMasuk" class="block font-semibold text-slate-700 mb-1">Mulai Masuk (Tahun)</label>
+            <input type="number" id="inputTahunMasuk" placeholder="1994" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all font-medium">
+          </div>
+          <div>
+            <label for="inputTahunSelesai" class="block font-semibold text-slate-700 mb-1">Selesai / Pensiun (Tahun)</label>
+            <input type="number" id="inputTahunSelesai" placeholder="2024" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all font-medium">
+          </div>
+        </div>
+
+        <!-- Mantan Atasan -->
+        <div>
+          <label for="inputMantanAtasan" class="block font-semibold text-slate-700 mb-1">Mantan Atasan Terakhir <span class="text-rose-500">*</span></label>
+          <input type="text" id="inputMantanAtasan" placeholder="Nama atasan / Manager saat bertugas" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all font-medium">
+        </div>
+
+        <!-- Tahun Pensiun -->
+        <div>
+          <label for="inputTahunPensiun" class="block font-semibold text-slate-700 mb-1">Tahun Pensiun Resmi <span class="text-rose-500">*</span></label>
+          <input type="number" id="inputTahunPensiun" placeholder="Contoh: 2024" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all font-medium">
+        </div>
+
+        <!-- Kegiatan Saat Ini -->
+        <div>
+          <label for="inputKegiatan" class="block font-semibold text-slate-700 mb-1">Kegiatan Saat Ini (Purna Bakti) <span class="text-rose-500">*</span></label>
+          <input type="text" id="inputKegiatan" list="kegiatanSuggestions" placeholder="Contoh: Wiraswasta / Berkebun Mandiri / Konsultan" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all font-medium">
+          <datalist id="kegiatanSuggestions">
+            <option value="Menikmati masa pensiun bersama keluarga">
+            <option value="Berkebun kelapa sawit mandiri">
+            <option value="Wiraswasta / Usaha Mandiri">
+            <option value="Konsultan Perkebunan & Pabrik Kelapa Sawit">
+            <option value="Aktif di kegiatan sosial & keagamaan">
+            <option value="Pengurus Paguyuban Alumni AAL">
+            <option value="Mengelola bisnis kuliner & perdagangan">
+            <option value="Beternak & perikanan mandiri">
+          </datalist>
+          <p class="text-[10px] text-slate-400 mt-1">Aktivitas sehari-hari atau usaha alumni setelah purna bakti.</p>
+        </div>
+
+        <!-- Informasi Cucu / Penerus Generasi -->
+        <div class="p-3 bg-sky-50/60 rounded-2xl border border-sky-100 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <label class="block font-semibold text-slate-800 text-xs">Informasi Cucu / Penerus Generasi</label>
+            <span class="text-[10px] text-sky-700 bg-sky-100 px-2 py-0.5 rounded-full font-bold">Keluarga</span>
+          </div>
+          
+          <div class="grid grid-cols-3 gap-2">
+            <!-- Cucu Laki-laki -->
+            <div>
+              <label for="inputCucuLaki" class="block font-medium text-slate-600 text-[11px] mb-1">👦 Laki-laki</label>
+              <input type="number" id="inputCucuLaki" min="0" placeholder="0" oninput="autoCalculateCucu()" class="w-full px-2.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all font-semibold text-center text-xs">
+            </div>
+
+            <!-- Cucu Perempuan -->
+            <div>
+              <label for="inputCucuPerempuan" class="block font-medium text-slate-600 text-[11px] mb-1">👧 Perempuan</label>
+              <input type="number" id="inputCucuPerempuan" min="0" placeholder="0" oninput="autoCalculateCucu()" class="w-full px-2.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all font-semibold text-center text-xs">
+            </div>
+
+            <!-- Jumlah Cucu (Total) -->
+            <div>
+              <label for="inputJumlahCucu" class="block font-semibold text-sky-800 text-[11px] mb-1">Total Cucu</label>
+              <input type="number" id="inputJumlahCucu" min="0" placeholder="0" class="w-full px-2.5 py-2 rounded-xl bg-white border border-sky-200 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all font-extrabold text-sky-700 text-center text-xs">
+            </div>
+          </div>
+          <p class="text-[10px] text-slate-400">Total cucu otomatis terhitung saat jumlah cucu laki-laki atau perempuan diisi.</p>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer (Save & Cancel buttons) -->
+      <div class="px-5 py-3.5 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-2.5">
+        <button type="button" onclick="closeFormModal()" class="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200/60 font-semibold transition-colors">
+          Batal
+        </button>
+        <button type="button" onclick="saveAlumniData()" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 active:scale-95 text-white font-bold transition-all shadow-md shadow-brand-600/30 flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          <span>Simpan Data</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= MODAL FULLSCREEN ZOOM & SIMPAN FOTO ================= -->
+  <div id="photoZoomModal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-md z-50 flex flex-col justify-between hidden select-none animate-in fade-in duration-200">
+    
+    <!-- Top Bar Header -->
+    <div class="px-4 py-3 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between text-white z-20 shrink-0">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div class="w-8 h-8 rounded-xl bg-white p-0.5 flex items-center justify-center shrink-0 border border-slate-700">
+          <img src="logo-aal.png" alt="AAL" class="w-full h-full object-contain">
+        </div>
+        <div class="min-w-0">
+          <h3 id="zoomModalTitle" class="font-bold text-xs truncate max-w-[190px] sm:max-w-xs text-white">Foto Alumni</h3>
+          <p class="text-[10px] text-slate-400">Pinch / Cubit layar atau gunakan tombol untuk zoom</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <span id="zoomLevelBadge" class="text-[11px] font-bold px-2 py-0.5 rounded-lg bg-slate-800 text-emerald-400 border border-slate-700">100%</span>
+        <button onclick="downloadCurrentPhoto()" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors active:scale-95 shadow-md shadow-emerald-900/40" title="Download / Simpan Foto">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          <span class="hidden sm:inline">Simpan</span>
+        </button>
+        <button onclick="closePhotoZoomModal()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors active:scale-95">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Center Zoomable & Draggable Photo Area -->
+    <div id="zoomViewerArea" class="flex-1 overflow-hidden relative flex items-center justify-center p-2 cursor-grab active:cursor-grabbing touch-none">
+      <div id="zoomImgContainer" class="max-w-full max-h-full flex items-center justify-center transition-transform duration-100 ease-out origin-center">
+        <img id="zoomModalImg" src="" alt="Zoom Foto" class="max-w-[85vw] max-h-[65vh] object-contain rounded-2xl shadow-2xl pointer-events-none select-none border border-slate-800" draggable="false">
+      </div>
+
+      <!-- Quick double-tap hint overlay -->
+      <div id="zoomHintOverlay" class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-slate-900/80 backdrop-blur-md border border-slate-700 text-slate-300 text-[11px] px-3.5 py-1.5 rounded-full pointer-events-none shadow-lg flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/></svg>
+        <span>Ketuk 2x untuk perbesar 2x • Geser untuk geser posisi</span>
+      </div>
+    </div>
+
+    <!-- Bottom Zoom Controls Bar -->
+    <div class="px-4 py-3 bg-slate-900/90 border-t border-slate-800 flex items-center justify-between gap-3 text-white z-20 shrink-0">
+      <!-- Zoom In / Out / Reset buttons -->
+      <div class="flex items-center gap-1.5">
+        <button onclick="zoomOut()" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 flex items-center justify-center text-slate-200 border border-slate-700" title="Perkecil (-)">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/></svg>
+        </button>
+        <button onclick="resetZoom()" class="px-3 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xs font-bold text-slate-200 border border-slate-700" title="Reset Zoom ke 100%">
+          Reset
+        </button>
+        <button onclick="zoomIn()" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 flex items-center justify-center text-slate-200 border border-slate-700" title="Perbesar (+)">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+        </button>
+      </div>
+
+      <!-- Main Save Button -->
+      <button onclick="downloadCurrentPhoto()" class="py-2.5 px-4 rounded-xl bg-brand-600 hover:bg-brand-500 active:scale-95 text-xs font-bold text-white flex items-center gap-2 shadow-lg shadow-brand-900/50 border border-brand-500">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        <span>Simpan Foto (JPG)</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ================= MODAL KATALOG 41 ENTITAS ANAK ASTRA AGRO LESTARI ================= -->
+  <div id="modalAALCompanies" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 flex items-end md:items-center justify-center p-0 md:p-4 hidden transition-opacity duration-200">
+    <div class="bg-white w-full md:max-w-lg rounded-t-[32px] md:rounded-3xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-200">
+      
+      <!-- Modal Header -->
+      <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-emerald-50 via-white to-teal-50">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center border border-emerald-200 shadow-sm shrink-0">
+            <img src="logo-aal.png" alt="Logo AAL" class="w-full h-full object-contain">
+          </div>
+          <div>
+            <h3 class="font-extrabold text-slate-800 text-sm">Entitas Anak PT Astra Agro Lestari Tbk</h3>
+            <p class="text-[11px] text-emerald-700 font-semibold">Portofolio 41 Perusahaan Resmi (Sumatra, Kalimantan, Sulawesi & Hilirisasi)</p>
+          </div>
+        </div>
+        <button onclick="closeAALCompanySelector()" class="w-8 h-8 rounded-full bg-slate-200/80 hover:bg-slate-300 flex items-center justify-center text-slate-600 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Search & Region Filters -->
+      <div class="p-4 border-b border-slate-100 bg-slate-50/70 space-y-3">
+        <!-- Search Input -->
+        <div class="relative">
+          <input type="text" id="searchCompanyInput" onkeyup="filterAALCompanies()" placeholder="Cari nama PT, kota, atau wilayah (misal: Riau, Kalteng, Mamuju, Dumai)..." class="w-full text-xs pl-9 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 font-medium transition-all shadow-xs">
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px] no-scrollbar">
+          <button onclick="setCompanyRegionFilter('all')" id="filterBtnAll" class="px-3 py-1 rounded-full font-bold bg-emerald-700 text-white shrink-0 transition-colors shadow-xs">
+            Semua (41)
+          </button>
+          <button onclick="setCompanyRegionFilter('Sumatra')" id="filterBtnSumatra" class="px-3 py-1 rounded-full font-medium bg-white text-slate-600 hover:bg-emerald-50 border border-slate-200 shrink-0 transition-colors">
+            Sumatra (8)
+          </button>
+          <button onclick="setCompanyRegionFilter('Kalimantan')" id="filterBtnKalimantan" class="px-3 py-1 rounded-full font-medium bg-white text-slate-600 hover:bg-emerald-50 border border-slate-200 shrink-0 transition-colors">
+            Kalimantan (20)
+          </button>
+          <button onclick="setCompanyRegionFilter('Sulawesi')" id="filterBtnSulawesi" class="px-3 py-1 rounded-full font-medium bg-white text-slate-600 hover:bg-emerald-50 border border-slate-200 shrink-0 transition-colors">
+            Sulawesi (7)
+          </button>
+          <button onclick="setCompanyRegionFilter('Hilirisasi')" id="filterBtnHilirisasi" class="px-3 py-1 rounded-full font-medium bg-white text-slate-600 hover:bg-emerald-50 border border-slate-200 shrink-0 transition-colors">
+            Hilirisasi & Jasa (5)
+          </button>
+          <button onclick="setCompanyRegionFilter('Holding')" id="filterBtnHolding" class="px-3 py-1 rounded-full font-medium bg-white text-slate-600 hover:bg-emerald-50 border border-slate-200 shrink-0 transition-colors">
+            Holding (1)
+          </button>
+        </div>
+      </div>
+
+      <!-- List Container -->
+      <div id="aalCompanyListContainer" class="p-4 overflow-y-auto space-y-2.5 text-xs flex-1 max-h-[55vh]">
+        <!-- Dynamic Company Cards will be rendered here -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+        <span>Ketuk salah satu perusahaan untuk otomatis mengisi formulir</span>
+        <button type="button" onclick="closeAALCompanySelector()" class="px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 font-semibold text-slate-700 transition-colors">
+          Tutup
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= MODAL SHARE LINK VIA WHATSAPP ================= -->
+  <div id="modalShareWhatsApp" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 flex items-end md:items-center justify-center p-0 md:p-4 hidden transition-opacity duration-200">
+    <div class="bg-white w-full md:max-w-md rounded-t-[32px] md:rounded-3xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-200">
+      
+      <!-- Header -->
+      <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-700 text-white">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center shadow-md shrink-0">
+            <svg class="w-6 h-6 text-[#25D366] fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
+          </div>
+          <div>
+            <h3 class="font-extrabold text-sm text-white">Share Link Lembar Data Alumni</h3>
+            <p class="text-[11px] text-emerald-100">Kirim ke WhatsApp rekan pensiunan AAL</p>
+          </div>
+        </div>
+        <button onclick="closeShareLinkModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="p-5 overflow-y-auto space-y-4 text-xs flex-1">
+        
+        <!-- Box Link yang Dibagikan -->
+        <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="block font-bold text-slate-700 text-[11px] flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+              <span>Link Formulir yang Akan Dibagikan:</span>
+            </label>
+            <span class="text-[10px] text-emerald-700 bg-emerald-100 font-semibold px-2 py-0.5 rounded-full">Aktif</span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <input type="text" id="shareUrlInput" oninput="updateShareUrlFromInput()" class="flex-1 px-3 py-2 text-xs bg-white border border-slate-300 rounded-xl font-mono text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500" placeholder="https://...">
+            <button onclick="copyShareUrlOnly()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 active:scale-95 text-white font-bold text-[11px] shrink-0 transition-colors flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Salin Link</span>
+            </button>
+          </div>
+          <p class="text-[10px] text-slate-500 leading-tight">Link ini dapat disesuaikan jika aplikasi di-host di domain web, server lokal Wi-Fi, atau Google Form.</p>
+        </div>
+
+        <!-- Opsi Kirim ke Nomor Tertentu -->
+        <div class="p-3.5 rounded-2xl bg-emerald-50/60 border border-emerald-200/80 space-y-2">
+          <label class="block font-bold text-slate-800 text-[11px] flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            <span>Kirim Langsung ke Nomor WA Rekan (Opsional):</span>
+          </label>
+          <div class="flex items-center gap-2">
+            <input type="tel" id="directWANumberInput" placeholder="Contoh: 08123456789 atau 62812..." class="flex-1 px-3 py-2 text-xs bg-white border border-emerald-300 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500">
+            <button onclick="sendToSpecificWANumber()" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-[11px] shrink-0 transition-colors flex items-center gap-1 shadow-xs">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
+              <span>Kirim ke Nomor Ini</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Pratinjau Teks WhatsApp Chat Bubble -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-bold text-slate-700 text-[11px]">Pratinjau Pesan WhatsApp:</span>
+            <span class="text-[10px] text-slate-400">Format Resmi Paguyuban</span>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-[#E7FFDB] border border-[#BCE8AC] text-slate-800 text-[11px] shadow-inner relative leading-relaxed font-sans select-text">
+            <div class="font-bold text-emerald-900 border-b border-emerald-300/60 pb-1 mb-1.5 flex items-center justify-between">
+              <span>PAGUYUBAN PURNA BAKTI ASTRA AGRO LESTARI (AAL)</span>
+              <span class="text-[9px] text-emerald-700">WhatsApp</span>
+            </div>
+            <p class="italic text-emerald-800 font-semibold mb-1.5">🌿 Satu Hati • Satu Rasa • Alumni AAL 🌿</p>
+            <p class="mb-1">Yth. Bapak/Ibu Rekan Pensiunan AAL,</p>
+            <p class="mb-2">Dalam rangka silaturahmi & pemutakhiran data paguyuban, kami mengundang Bapak/Ibu untuk melengkapi <b>Lembar Data Warga Alumni AAL</b> melalui tautan formulir berikut:</p>
+            <p class="p-2 rounded-xl bg-white/80 border border-emerald-300 font-mono text-[11px] text-blue-600 underline font-semibold break-all mb-2" id="previewShareLinkText">https://alumni.astra-agro.co.id/isi-data</p>
+            <div class="text-[10px] text-slate-600 space-y-0.5 mb-2 pl-1 border-l-2 border-emerald-400">
+              <p>📌 <b>Data yang dicatat meliputi:</b></p>
+              <p>• Foto Profil (Bisa Zoom 2x & Simpan)</p>
+              <p>• Data Diri & Alamat Sekarang</p>
+              <p>• Devisi & Perusahaan (41 Entitas AAL)</p>
+              <p>• Rentang Masa Kerja & Mantan Atasan</p>
+              <p>• Tahun Pensiun, Kegiatan Saat Ini & Cucu</p>
+            </div>
+            <p class="text-[10px] text-slate-600">Mohon bantuannya membagikan ke rekan purnabakti AAL lainnya. Terima kasih! 🙏</p>
+            <div class="flex justify-end items-center gap-1 text-[9px] text-slate-400 mt-1">
+              <span>Sekarang</span>
+              <svg class="w-3 h-3 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7m-14 4l4 4L19 11"/></svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Buttons -->
+      <div class="p-4 bg-slate-50 border-t border-slate-100 space-y-2">
+        <button onclick="shareLinkToWhatsAppDirect()" class="w-full py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20ba59] active:scale-[0.98] text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-700/25 transition-all">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.585 1.776.94 2.791.94 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.495 10-10 10-1.745 0-3.376-.451-4.799-1.241l-5.201 1.363 1.391-5.087c-.902-1.472-1.391-3.177-1.391-4.992 0-5.505 4.495-10 10-10 5.505 0 10 4.495 10 10z"/></svg>
+          <span>Buka WhatsApp & Bagikan Sekarang</span>
+        </button>
+
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="copyInvitationText()" class="py-2.5 px-3 rounded-xl bg-white hover:bg-slate-100 active:scale-[0.98] text-slate-700 font-bold text-xs border border-slate-300 flex items-center justify-center gap-1.5 transition-all">
+            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span>Salin Seluruh Teks</span>
+          </button>
+          <button onclick="copyShareUrlOnly()" class="py-2.5 px-3 rounded-xl bg-white hover:bg-slate-100 active:scale-[0.98] text-slate-700 font-bold text-xs border border-slate-300 flex items-center justify-center gap-1.5 transition-all">
+            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+            <span>Salin Link Saja</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-2.5 rounded-full text-xs font-semibold shadow-2xl flex items-center gap-2 z-50 pointer-events-none opacity-0 transition-opacity duration-300">
+    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    <span id="toastMessage">Data berhasil disimpan!</span>
+  </div>
+
+  <script>
+    // Initial State and Storage Key
+    const STORAGE_KEY = 'DATA_ALUMNI_AAL_RECORDS';
+
+    // Sample Initial Record with Company Name, Devisi Berapa, Head Office, Site (Nama PT), and Kegiatan Saat Ini
+    const defaultData = [
+      {
+        id: 'AAL-1994-082',
+        nama: 'H. Ir. Bambang Soeprapto, M.M.',
+        tglLahir: '1968-08-17',
+        alamat: 'Jl. Flamboyan Indah No. 45, RT 03 / RW 07, Pekanbaru, Riau',
+        noWA: '081234567890',
+        namaPT: 'PT Astra Agro Lestari Tbk',
+        penempatan: 'Site',
+        sitePT: 'Site PT Kimia Tirta Utama (KTU)',
+        devisi: 'Divisi 2 (Afdeling II)',
+        tahunMasuk: 1994,
+        tahunSelesai: 2024,
+        mantanAtasan: 'Dr. Ir. Hendra Gunawan (VP Plantation)',
+        tahunPensiun: 2024,
+        kegiatanSaatIni: 'Mengelola perkebunan sawit mandiri & aktif di kegiatan sosial kemasyarakatan',
+        jumlahCucu: 5,
+        cucuLaki: 3,
+        cucuPerempuan: 2,
+        photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        id: 'AAL-1998-115',
+        nama: 'Drs. H. Mulyono Santoso',
+        tglLahir: '1969-05-12',
+        alamat: 'Komplek Griya Sawit Indah Blok C-12, Pekanbaru',
+        noWA: '081398765432',
+        namaPT: 'PT Sari Lembah Subur (SLS)',
+        penempatan: 'Site',
+        sitePT: 'Site PT Sari Lembah Subur (SLS)',
+        devisi: 'Divisi 1 - Pabrik Kelapa Sawit (Mill)',
+        tahunMasuk: 1998,
+        tahunSelesai: 2023,
+        mantanAtasan: 'Ir. Agus Wijaya (Mill Manager)',
+        tahunPensiun: 2023,
+        kegiatanSaatIni: 'Wiraswasta bengkel permesinan & konsultan pabrik kelapa sawit',
+        jumlahCucu: 4,
+        cucuLaki: 2,
+        cucuPerempuan: 2,
+        photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        id: 'AAL-2001-045',
+        nama: 'Ir. Hj. Siti Rahmawati, M.Si.',
+        tglLahir: '1970-11-23',
+        alamat: 'Komp. Kelapa Gading Permai No. 18, Jakarta Timur',
+        noWA: '081122334455',
+        namaPT: 'PT Astra Agro Lestari Tbk',
+        penempatan: 'Head Office',
+        sitePT: 'Head Office Jakarta (HO)',
+        devisi: 'Divisi Human Capital & Sustainability',
+        tahunMasuk: 2001,
+        tahunSelesai: 2025,
+        mantanAtasan: 'Bambang Widjanarko (Direktur HR)',
+        tahunPensiun: 2025,
+        kegiatanSaatIni: 'Menikmati masa purna bakti bersama keluarga & pengurus paguyuban alumni',
+        jumlahCucu: 3,
+        cucuLaki: 1,
+        cucuPerempuan: 2,
+        photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80'
+      }
+    ];
+
+    let alumniList = [];
+    let currentSelectedIndex = 0;
+    let editingId = null;
+
+    // ================= DAFTAR LENGKAP 41 ENTITAS ANAK ASTRA AGRO LESTARI TBK =================
+    const AAL_ENTITAS_PERUSAHAAN = [
+      {
+        kategori: 'Holding / Kantor Pusat',
+        region: 'Holding',
+        perusahaan: [
+          { nama: 'PT Astra Agro Lestari Tbk', wilayah: 'Head Office Jakarta', bisnis: 'Holding & Manajemen Perkebunan Sawit', tipe: 'Head Office' }
+        ]
+      },
+      {
+        kategori: 'Wilayah Operasional Sumatra (8 Entitas)',
+        region: 'Sumatra',
+        perusahaan: [
+          { nama: 'PT Sari Lembah Subur', wilayah: 'Pelalawan, Riau', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Eka Dura Indonesia', wilayah: 'Rokan Hulu, Riau', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Tunggal Perkasa Plantations', wilayah: 'Indragiri Hulu, Riau', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Sawit Asikin Indah', wilayah: 'Riau', bisnis: 'Perkebunan Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Kimia Tirta Utama', wilayah: 'Siak, Riau', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Karya Tanah Subur', wilayah: 'Aceh Barat, Aceh', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Perkebunan Lembah Bhakti', wilayah: 'Aceh Singkil, Aceh', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Astra Agro Lestari Mas', wilayah: 'Jakarta / Sumatra', bisnis: 'Perdagangan & Manajemen Jasa Sawit', tipe: 'Site' }
+        ]
+      },
+      {
+        kategori: 'Wilayah Operasional Kalimantan (20 Entitas)',
+        region: 'Kalimantan',
+        perusahaan: [
+          { nama: 'PT Agro Menara Rachmat', wilayah: 'Kalimantan Tengah', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Bhadra Cemerlang', wilayah: 'Kalimantan Tengah', bisnis: 'Perkebunan Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Cipta Narada Lestari', wilayah: 'Kalimantan Tengah', bisnis: 'Perkebunan Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Gunung Sejahtera Dua Indah', wilayah: 'Kotawaringin Barat, Kalteng', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Gunung Sejahtera Yoli Makmur', wilayah: 'Kotawaringin Barat, Kalteng', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Gunung Sejahtera Puti Pesona', wilayah: 'Kotawaringin Barat, Kalteng', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Gunung Sejahtera Ibu Pertiwi', wilayah: 'Kotawaringin Barat, Kalteng', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Karda Multi Sarana', wilayah: 'Kalimantan Tengah', bisnis: 'Perkebunan Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Nirmala Agro Lestari', wilayah: 'Kotawaringin Barat, Kalteng', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Pandji Waringin', wilayah: 'Kalimantan Tengah', bisnis: 'Perkebunan Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Persada Dinamika Lestari', wilayah: 'Kalimantan Tengah', bisnis: 'Perkebunan Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Sawit Multi Utama', wilayah: 'Kalimantan Tengah', bisnis: 'Perkebunan Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Sumber Kharisma Persada', wilayah: 'Kalimantan Tengah', bisnis: 'Perkebunan Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Sukses Tani Nusasubur', wilayah: 'Penajam Paser Utara, Kaltim', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Borneo Indah Marjaya', wilayah: 'Paser, Kalimantan Timur', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Waru Kaltim Plantation', wilayah: 'Penajam Paser Utara, Kaltim', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Subur Abadi Plantations', wilayah: 'Kalimantan Selatan', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Suryaindah Nusantarapagi', wilayah: 'Kalimantan Selatan', bisnis: 'Perkebunan Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Karya Menara Hijau', wilayah: 'Kalimantan Selatan', bisnis: 'Perkebunan Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Susantri Permai', wilayah: 'Kalimantan Tengah', bisnis: 'Perkebunan Kelapa Sawit', tipe: 'Site' }
+        ]
+      },
+      {
+        kategori: 'Wilayah Operasional Sulawesi (7 Entitas)',
+        region: 'Sulawesi',
+        perusahaan: [
+          { nama: 'PT Pasangkayu', wilayah: 'Pasangkayu, Sulawesi Barat', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Letawa', wilayah: 'Pasangkayu, Sulawesi Barat', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Mamuang', wilayah: 'Pasangkayu, Sulawesi Barat', bisnis: 'Perkebunan Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Surya Raya Lestari', wilayah: 'Mamuju Tengah, Sulbar', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Lestari Tani Teladan', wilayah: 'Donggala, Sulawesi Tengah', bisnis: 'Perkebunan Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Agro Nusa Abadi', wilayah: 'Morowali Utara, Sulteng', bisnis: 'Perkebunan & Pabrik Kelapa Sawit', tipe: 'Site' },
+          { nama: 'PT Tamaco Graha Krida', wilayah: 'Poso, Sulawesi Tengah', bisnis: 'Perkebunan Kelapa Sawit', tipe: 'Site' }
+        ]
+      },
+      {
+        kategori: 'Pengolahan, Hilirisasi, dan Jasa Penunjang (5 Entitas)',
+        region: 'Hilirisasi',
+        perusahaan: [
+          { nama: 'PT Tanjung Sarana Lestari', wilayah: 'Mamuju Utara, Sulbar', bisnis: 'Refinery (Pengolahan CPO) & Biodiesel', tipe: 'Site' },
+          { nama: 'PT Tanjung Bina Lestari', wilayah: 'Mamuju Utara, Sulbar', bisnis: 'Pengolahan Kernel Oil & Turunan Sawit', tipe: 'Site' },
+          { nama: 'PT Kreasijaya Adhikarya', wilayah: 'Dumai, Riau', bisnis: 'Refinery & Fraksinasi (Joint Venture)', tipe: 'Site' },
+          { nama: 'PT Astra Agro Lestari Palma', wilayah: 'Jakarta', bisnis: 'Pemasaran & Perdagangan Minyak Nabati', tipe: 'Head Office' },
+          { nama: 'PT AAL Trans Sentosa', wilayah: 'Nasional', bisnis: 'Jasa Transportasi & Logistik CPO', tipe: 'Site' }
+        ]
+      }
+    ];
+
+    const AAL_COMPANIES_FLAT = [];
+    AAL_ENTITAS_PERUSAHAAN.forEach(group => {
+      group.perusahaan.forEach(item => {
+        AAL_COMPANIES_FLAT.push({
+          ...item,
+          kategori: group.kategori,
+          region: group.region
+        });
+      });
+    });
+
+    let activeCompanyRegion = 'all';
+
+    function openAALCompanySelector() {
+      document.getElementById('modalAALCompanies').classList.remove('hidden');
+      document.getElementById('searchCompanyInput').value = '';
+      activeCompanyRegion = 'all';
+      updateCompanyRegionFilterButtons();
+      renderAALCompanies();
+    }
+
+    function closeAALCompanySelector() {
+      document.getElementById('modalAALCompanies').classList.add('hidden');
+    }
+
+    function updateCompanyRegionFilterButtons() {
+      const regions = ['All', 'Sumatra', 'Kalimantan', 'Sulawesi', 'Hilirisasi', 'Holding'];
+      regions.forEach(r => {
+        const btn = document.getElementById(`filterBtn${r}`);
+        if (!btn) return;
+        const matches = (r.toLowerCase() === activeCompanyRegion.toLowerCase()) || (r === 'All' && activeCompanyRegion === 'all');
+        if (matches) {
+          btn.className = 'px-3 py-1 rounded-full font-bold bg-emerald-700 text-white shrink-0 transition-colors shadow-xs';
+        } else {
+          btn.className = 'px-3 py-1 rounded-full font-medium bg-white text-slate-600 hover:bg-emerald-50 border border-slate-200 shrink-0 transition-colors';
+        }
+      });
+    }
+
+    function setCompanyRegionFilter(region) {
+      activeCompanyRegion = region;
+      updateCompanyRegionFilterButtons();
+      filterAALCompanies();
+    }
+
+    function filterAALCompanies() {
+      const q = (document.getElementById('searchCompanyInput').value || '').toLowerCase().trim();
+      let filtered = AAL_COMPANIES_FLAT;
+
+      if (activeCompanyRegion !== 'all') {
+        filtered = filtered.filter(c => c.region.toLowerCase() === activeCompanyRegion.toLowerCase());
+      }
+
+      if (q) {
+        filtered = filtered.filter(c => 
+          c.nama.toLowerCase().includes(q) || 
+          c.wilayah.toLowerCase().includes(q) || 
+          c.bisnis.toLowerCase().includes(q) || 
+          c.kategori.toLowerCase().includes(q)
+        );
+      }
+
+      renderAALCompanies(filtered);
+    }
+
+    function renderAALCompanies(customList) {
+      const container = document.getElementById('aalCompanyListContainer');
+      const list = customList !== undefined ? customList : AAL_COMPANIES_FLAT;
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8 text-slate-400 text-xs">
+            <p>Tidak ada entitas perusahaan AAL yang cocok dengan pencarian.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map((item) => {
+        const isHO = item.tipe === 'Head Office';
+        const badgeColor = isHO 
+          ? 'bg-purple-100 text-purple-800 border-purple-200' 
+          : 'bg-emerald-100 text-emerald-800 border-emerald-200';
+
+        return `
+          <div onclick="selectAALCompany('${item.nama.replace(/'/g, "\\'")}', '${item.wilayah.replace(/'/g, "\\'")}', '${item.tipe}')" class="p-3 bg-white hover:bg-emerald-50/70 active:scale-[0.99] border border-slate-200 hover:border-emerald-300 rounded-2xl cursor-pointer transition-all shadow-xs flex items-center justify-between gap-3 group">
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-2 mb-1">
+                <h4 class="font-bold text-slate-900 text-xs truncate group-hover:text-emerald-700 transition-colors">${item.nama}</h4>
+                <span class="text-[9px] font-bold px-2 py-0.5 rounded-full border ${badgeColor} shrink-0">${item.tipe}</span>
+              </div>
+              <p class="text-[11px] text-slate-600 flex items-center gap-1 truncate">
+                <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span>${item.wilayah}</span>
+              </p>
+              <p class="text-[10px] text-emerald-700/80 font-medium truncate mt-0.5">${item.bisnis}</p>
+            </div>
+            <button type="button" class="px-2.5 py-1.5 rounded-xl bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-700 text-[11px] font-bold shrink-0 transition-colors flex items-center gap-1">
+              <span>Pilih</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectAALCompany(nama, wilayah, tipe) {
+      document.getElementById('inputNamaPT').value = nama;
+      if (tipe === 'Head Office') {
+        document.getElementById('radioHO').checked = true;
+        document.getElementById('inputSitePT').value = `${nama} - ${wilayah}`;
+      } else {
+        document.getElementById('radioSite').checked = true;
+        document.getElementById('inputSitePT').value = `Site ${nama} (${wilayah})`;
+      }
+      togglePenempatanFields();
+      closeAALCompanySelector();
+      showToast(`Perusahaan "${nama}" berhasil dipilih!`);
+    }
+
+    function autoSuggestSiteFromPT() {
+      const val = document.getElementById('inputNamaPT').value.trim();
+      if (!val) return;
+      const found = AAL_COMPANIES_FLAT.find(c => c.nama.toLowerCase() === val.toLowerCase());
+      if (found) {
+        if (found.tipe === 'Head Office') {
+          document.getElementById('radioHO').checked = true;
+          document.getElementById('inputSitePT').value = `${found.nama} - ${found.wilayah}`;
+        } else {
+          document.getElementById('radioSite').checked = true;
+          document.getElementById('inputSitePT').value = `Site ${found.nama} (${found.wilayah})`;
+        }
+        togglePenempatanFields();
+      }
+    }
+
+    // Load from LocalStorage
+    function initData() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try {
+          alumniList = JSON.parse(stored);
+        } catch (e) {
+          alumniList = [...defaultData];
+        }
+      } else {
+        alumniList = [...defaultData];
+        saveToLocalStorage();
+      }
+      renderCurrentCard();
+      renderAlumniList();
+      updateClock();
+    }
+
+    function saveToLocalStorage() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(alumniList));
+    }
+
+    // Format Date to Indonesian format
+    function formatTanggalIndo(dateStr) {
+      if (!dateStr) return '-';
+      const parts = dateStr.split('-');
+      if (parts.length !== 3) return dateStr;
+      
+      const bulan = [
+        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+      ];
+      const year = parts[0];
+      const month = parseInt(parts[1], 10) - 1;
+      const day = parseInt(parts[2], 10);
+      return `${day} ${bulan[month] || ''} ${year}`;
+    }
+
+    // Calculate Age
+    function calculateAge(birthDateStr) {
+      if (!birthDateStr) return '';
+      const birth = new Date(birthDateStr);
+      const today = new Date();
+      let age = today.getFullYear() - birth.getFullYear();
+      const m = today.getMonth() - birth.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+        age--;
+      }
+      return age > 0 ? `(Usia: ${age} Tahun)` : '';
+    }
+
+    // Sanitize phone number for WhatsApp Link
+    function sanitizeWANumber(phoneStr) {
+      if (!phoneStr) return '';
+      let clean = phoneStr.replace(/[^0-9]/g, '');
+      if (clean.startsWith('0')) {
+        clean = '62' + clean.substring(1);
+      }
+      return clean;
+    }
+
+    // Render Current Selected Alumni Card
+    function renderCurrentCard() {
+      if (alumniList.length === 0) return;
+      const alumni = alumniList[currentSelectedIndex] || alumniList[0];
+
+      document.getElementById('displayId').innerText = alumni.id || 'AAL-ALUMNI';
+      document.getElementById('displayName').innerText = alumni.nama || '-';
+      document.getElementById('displayTglLahir').innerText = formatTanggalIndo(alumni.tglLahir);
+      document.getElementById('displayUsia').innerText = calculateAge(alumni.tglLahir);
+      document.getElementById('displayAlamat').innerText = alumni.alamat || '-';
+      document.getElementById('displayWA').innerText = alumni.noWA || '-';
+      
+      // Devisi & Perusahaan Bindings
+      const namaPerusahaan = alumni.namaPT || 'PT Astra Agro Lestari Tbk';
+      const penempatan = alumni.penempatan || (alumni.sitePT && alumni.sitePT.includes('Head Office') ? 'Head Office' : 'Site');
+      const sitePT = alumni.sitePT || (penempatan === 'Head Office' ? 'Head Office Jakarta' : alumni.namaPT || '-');
+      const devisiBerapa = alumni.devisi || 'Divisi 1';
+
+      document.getElementById('displayNamaPerusahaan').innerText = namaPerusahaan;
+      document.getElementById('displayPT').innerText = namaPerusahaan;
+      document.getElementById('displayDevisiBerapa').innerText = devisiBerapa;
+      document.getElementById('displayDevisiBadge').innerText = devisiBerapa;
+      document.getElementById('displaySiteDetail').innerText = sitePT;
+
+      const badgeLokasi = document.getElementById('displayBadgeLokasi');
+      const badgePenempatanHeader = document.getElementById('displayBadgePenempatanHeader');
+      const labelPenempatan = document.getElementById('displayLabelPenempatan');
+
+      if (penempatan === 'Head Office') {
+        badgeLokasi.className = 'inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800 border border-purple-200 shrink-0';
+        badgeLokasi.innerText = 'Head Office';
+        if (badgePenempatanHeader) {
+          badgePenempatanHeader.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200 text-[11px] font-bold';
+          badgePenempatanHeader.innerText = 'Head Office';
+        }
+        if (labelPenempatan) labelPenempatan.innerText = 'Penempatan';
+      } else {
+        badgeLokasi.className = 'inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 border border-blue-200 shrink-0';
+        badgeLokasi.innerText = 'Site';
+        if (badgePenempatanHeader) {
+          badgePenempatanHeader.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold';
+          badgePenempatanHeader.innerText = sitePT.startsWith('Site') ? sitePT : `Site: ${sitePT}`;
+        }
+        if (labelPenempatan) labelPenempatan.innerText = 'Site (Nama PT)';
+      }
+      
+      const startYr = alumni.tahunMasuk || '';
+      const endYr = alumni.tahunSelesai || alumni.tahunPensiun || '';
+      document.getElementById('displayRentangKerja').innerText = (startYr || endYr) ? `${startYr} s/d ${endYr}` : '-';
+
+      if (startYr && endYr) {
+        const diff = Math.max(0, parseInt(endYr) - parseInt(startYr));
+        document.getElementById('displayMasaKerja').innerText = `Masa Pengabdian: ~${diff} Tahun`;
+      } else {
+        document.getElementById('displayMasaKerja').innerText = `Keluarga Besar Purnabakti AAL`;
+      }
+
+      document.getElementById('displayMantanAtasan').innerText = alumni.mantanAtasan || '-';
+      document.getElementById('displayTahunPensiun').innerText = `Tahun ${alumni.tahunPensiun || '-'}`;
+      document.getElementById('displayKegiatanSaatIni').innerText = alumni.kegiatanSaatIni || 'Menikmati masa pensiun bersama keluarga';
+      
+      // Informasi Cucu / Penerus Generasi
+      const cucuLaki = parseInt(alumni.cucuLaki) || 0;
+      const cucuPerempuan = parseInt(alumni.cucuPerempuan) || 0;
+      const jumlahCucu = (alumni.jumlahCucu !== undefined && alumni.jumlahCucu !== null && alumni.jumlahCucu !== '')
+        ? parseInt(alumni.jumlahCucu)
+        : (cucuLaki + cucuPerempuan);
+
+      document.getElementById('displayJumlahCucu').innerText = jumlahCucu;
+      document.getElementById('displayCucuLaki').innerText = `${cucuLaki} Orang`;
+      document.getElementById('displayCucuPerempuan').innerText = `${cucuPerempuan} Orang`;
+      
+      // Photo
+      const photoEl = document.getElementById('displayPhoto');
+      if (alumni.photo) {
+        photoEl.src = alumni.photo;
+      } else {
+        photoEl.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(alumni.nama || 'AAL')}&background=15803d&color=fff&size=512`;
+      }
+
+      // WhatsApp Button
+      const cleanPhone = sanitizeWANumber(alumni.noWA);
+      const waButton = document.getElementById('waDirectButton');
+      if (cleanPhone) {
+        const msg = encodeURIComponent(`Halo Bapak/Ibu ${alumni.nama}, salam hangat dari Paguyuban Alumni AAL.`);
+        waButton.href = `https://wa.me/${cleanPhone}?text=${msg}`;
+        waButton.classList.remove('opacity-50', 'pointer-events-none');
+      } else {
+        waButton.href = '#';
+        waButton.classList.add('opacity-50', 'pointer-events-none');
+      }
+
+      document.getElementById('totalAlumniCount').innerText = alumniList.length;
+    }
+
+    // Render List of Alumni
+    function renderAlumniList(filtered) {
+      const container = document.getElementById('alumniListContainer');
+      const list = filtered || alumniList;
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8 text-slate-400 text-xs">
+            Tidak ada data alumni ditemukan.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map((item, index) => {
+        const realIdx = alumniList.findIndex(a => a.id === item.id);
+        const isCurrent = realIdx === currentSelectedIndex;
+        const photoSrc = item.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.nama)}&background=15803d&color=fff&size=128`;
+
+        return `
+          <div onclick="selectAlumni(${realIdx})" class="p-3 rounded-2xl border transition-all cursor-pointer flex items-center gap-3 ${
+            isCurrent ? 'bg-emerald-50/70 border-emerald-300 ring-1 ring-emerald-400' : 'bg-slate-50/80 hover:bg-slate-100 border-slate-200'
+          }">
+            <img src="${photoSrc}" alt="${item.nama}" class="w-12 h-12 rounded-xl object-cover shrink-0 border border-slate-200">
+            <div class="flex-1 min-w-0 text-xs">
+              <h4 class="font-bold text-slate-900 truncate">${item.nama}</h4>
+              <p class="text-[11px] text-emerald-700 font-semibold truncate">${item.devisi}</p>
+              <p class="text-[10px] text-slate-500 truncate">${item.namaPT} • Pensiun ${item.tahunPensiun}</p>
+            </div>
+            <div class="flex items-center gap-1 shrink-0">
+              <button onclick="event.stopPropagation(); editAlumniDirect(${realIdx})" class="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-white" title="Edit">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              </button>
+              <button onclick="event.stopPropagation(); deleteAlumni(${realIdx})" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-white" title="Hapus">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectAlumni(idx) {
+      currentSelectedIndex = idx;
+      renderCurrentCard();
+      renderAlumniList();
+      switchTab('card');
+    }
+
+    function filterAlumniList() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      if (!q) {
+        renderAlumniList();
+        return;
+      }
+      const filtered = alumniList.filter(a => {
+        return (a.nama && a.nama.toLowerCase().includes(q)) ||
+               (a.devisi && a.devisi.toLowerCase().includes(q)) ||
+               (a.alamat && a.alamat.toLowerCase().includes(q)) ||
+               (a.namaPT && a.namaPT.toLowerCase().includes(q)) ||
+               (a.sitePT && a.sitePT.toLowerCase().includes(q)) ||
+               (a.kegiatanSaatIni && a.kegiatanSaatIni.toLowerCase().includes(q)) ||
+               (a.mantanAtasan && a.mantanAtasan.toLowerCase().includes(q));
+      });
+      renderAlumniList(filtered);
+    }
+
+    // Toggle Form Penempatan Fields (Head Office vs Site)
+    function togglePenempatanFields() {
+      const isHO = document.getElementById('radioHO').checked;
+      const label = document.getElementById('labelSitePT');
+      const input = document.getElementById('inputSitePT');
+      const helper = document.getElementById('helperSitePT');
+
+      if (isHO) {
+        label.innerText = 'Keterangan Head Office (HO) *';
+        input.placeholder = 'Contoh: Head Office Jakarta (HO)';
+        if (!input.value || input.value.startsWith('Site')) {
+          input.value = 'Head Office Jakarta (HO)';
+        }
+        helper.innerText = 'Lokasi kantor pusat / Head Office.';
+      } else {
+        label.innerText = 'Site (Cantumkan Nama PT) *';
+        input.placeholder = 'Contoh: Site PT Sari Lembah Subur (SLS)';
+        if (input.value === 'Head Office Jakarta (HO)') {
+          input.value = '';
+        }
+        helper.innerText = 'Cantumkan nama PT atau unit site kebun/pabrik.';
+      }
+    }
+
+    // Auto calculate Total Cucu
+    function autoCalculateCucu() {
+      const l = parseInt(document.getElementById('inputCucuLaki').value) || 0;
+      const p = parseInt(document.getElementById('inputCucuPerempuan').value) || 0;
+      document.getElementById('inputJumlahCucu').value = l + p;
+    }
+
+    // Modal Form Controls
+    function openFormModal(isNew = false) {
+      const modal = document.getElementById('formModal');
+      modal.classList.remove('hidden');
+
+      if (isNew) {
+        editingId = null;
+        document.getElementById('formModalTitle').innerText = 'Tambah Data Warga Alumni Baru';
+        document.getElementById('inputNama').value = '';
+        document.getElementById('inputTglLahir').value = '';
+        document.getElementById('inputAlamat').value = '';
+        document.getElementById('inputWA').value = '';
+        document.getElementById('inputNamaPT').value = 'PT Astra Agro Lestari Tbk';
+        document.getElementById('radioSite').checked = true;
+        document.getElementById('inputSitePT').value = '';
+        document.getElementById('inputDevisi').value = 'Divisi 1';
+        document.getElementById('inputTahunMasuk').value = '';
+        document.getElementById('inputTahunSelesai').value = '';
+        document.getElementById('inputMantanAtasan').value = '';
+        document.getElementById('inputTahunPensiun').value = new Date().getFullYear();
+        document.getElementById('inputKegiatan').value = '';
+        document.getElementById('inputCucuLaki').value = '0';
+        document.getElementById('inputCucuPerempuan').value = '0';
+        document.getElementById('inputJumlahCucu').value = '0';
+        document.getElementById('formPhotoPreview').src = 'https://ui-avatars.com/api/?name=Alumni+AAL&background=15803d&color=fff&size=256';
+        togglePenempatanFields();
+      } else {
+        const current = alumniList[currentSelectedIndex];
+        if (!current) return;
+        editingId = current.id;
+        document.getElementById('formModalTitle').innerText = 'Ubah Lembar Data Alumni';
+        document.getElementById('inputNama').value = current.nama || '';
+        document.getElementById('inputTglLahir').value = current.tglLahir || '';
+        document.getElementById('inputAlamat').value = current.alamat || '';
+        document.getElementById('inputWA').value = current.noWA || '';
+        document.getElementById('inputNamaPT').value = current.namaPT || 'PT Astra Agro Lestari Tbk';
+        
+        const isHO = (current.penempatan === 'Head Office') || (current.sitePT && current.sitePT.includes('Head Office'));
+        if (isHO) {
+          document.getElementById('radioHO').checked = true;
+        } else {
+          document.getElementById('radioSite').checked = true;
+        }
+        document.getElementById('inputSitePT').value = current.sitePT || (isHO ? 'Head Office Jakarta' : (current.namaPT || ''));
+        document.getElementById('inputDevisi').value = current.devisi || 'Divisi 1';
+
+        document.getElementById('inputTahunMasuk').value = current.tahunMasuk || '';
+        document.getElementById('inputTahunSelesai').value = current.tahunSelesai || '';
+        document.getElementById('inputMantanAtasan').value = current.mantanAtasan || '';
+        document.getElementById('inputTahunPensiun').value = current.tahunPensiun || '';
+        document.getElementById('inputKegiatan').value = current.kegiatanSaatIni || '';
+        
+        const cl = current.cucuLaki !== undefined ? current.cucuLaki : 0;
+        const cp = current.cucuPerempuan !== undefined ? current.cucuPerempuan : 0;
+        const cTotal = (current.jumlahCucu !== undefined && current.jumlahCucu !== null && current.jumlahCucu !== '')
+          ? current.jumlahCucu
+          : (parseInt(cl) + parseInt(cp));
+        document.getElementById('inputCucuLaki').value = cl;
+        document.getElementById('inputCucuPerempuan').value = cp;
+        document.getElementById('inputJumlahCucu').value = cTotal;
+
+        document.getElementById('formPhotoPreview').src = current.photo || 'https://ui-avatars.com/api/?name=Alumni+AAL&background=15803d&color=fff&size=256';
+        togglePenempatanFields();
+      }
+    }
+
+    function editAlumniDirect(idx) {
+      currentSelectedIndex = idx;
+      renderCurrentCard();
+      openFormModal(false);
+    }
+
+    function prepareNewAlumni() {
+      openFormModal(true);
+    }
+
+    function closeFormModal() {
+      document.getElementById('formModal').classList.add('hidden');
+    }
+
+    // Photo Upload Handler (Supports Mobile camera / gallery)
+    function handlePhotoUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const base64 = event.target.result;
+        document.getElementById('formPhotoPreview').src = base64;
+        showToast('Foto berhasil dimuat!');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Save Data
+    function saveAlumniData() {
+      const nama = document.getElementById('inputNama').value.trim();
+      const tglLahir = document.getElementById('inputTglLahir').value;
+      const alamat = document.getElementById('inputAlamat').value.trim();
+      const noWA = document.getElementById('inputWA').value.trim();
+      const namaPT = document.getElementById('inputNamaPT').value.trim();
+      const penempatan = document.getElementById('radioHO').checked ? 'Head Office' : 'Site';
+      const sitePT = document.getElementById('inputSitePT').value.trim();
+      const devisi = document.getElementById('inputDevisi').value.trim();
+      const tahunMasuk = document.getElementById('inputTahunMasuk').value;
+      const tahunSelesai = document.getElementById('inputTahunSelesai').value;
+      const mantanAtasan = document.getElementById('inputMantanAtasan').value.trim();
+      const tahunPensiun = document.getElementById('inputTahunPensiun').value;
+      const kegiatanSaatIni = document.getElementById('inputKegiatan').value.trim();
+      const cucuLaki = parseInt(document.getElementById('inputCucuLaki').value) || 0;
+      const cucuPerempuan = parseInt(document.getElementById('inputCucuPerempuan').value) || 0;
+      let jumlahCucu = parseInt(document.getElementById('inputJumlahCucu').value);
+      if (isNaN(jumlahCucu) || jumlahCucu < 0) {
+        jumlahCucu = cucuLaki + cucuPerempuan;
+      }
+      const photo = document.getElementById('formPhotoPreview').src;
+
+      if (!nama || !namaPT || !devisi) {
+        alert('Mohon isi Nama Lengkap, Nama Perusahaan, dan Devisi Berapa!');
+        return;
+      }
+
+      if (editingId) {
+        // Update existing
+        const idx = alumniList.findIndex(a => a.id === editingId);
+        if (idx !== -1) {
+          alumniList[idx] = {
+            ...alumniList[idx],
+            nama,
+            tglLahir,
+            alamat,
+            noWA,
+            namaPT,
+            penempatan,
+            sitePT,
+            devisi,
+            tahunMasuk,
+            tahunSelesai,
+            mantanAtasan,
+            tahunPensiun,
+            kegiatanSaatIni,
+            jumlahCucu,
+            cucuLaki,
+            cucuPerempuan,
+            photo
+          };
+          currentSelectedIndex = idx;
+        }
+      } else {
+        // Create new
+        const newRecord = {
+          id: `AAL-${tahunMasuk || 'GEN'}-${Math.floor(100 + Math.random() * 900)}`,
+          nama,
+          tglLahir,
+          alamat,
+          noWA,
+          namaPT,
+          penempatan,
+          sitePT,
+          devisi,
+          tahunMasuk,
+          tahunSelesai,
+          mantanAtasan,
+          tahunPensiun,
+          kegiatanSaatIni,
+          jumlahCucu,
+          cucuLaki,
+          cucuPerempuan,
+          photo
+        };
+        alumniList.unshift(newRecord);
+        currentSelectedIndex = 0;
+      }
+
+      saveToLocalStorage();
+      renderCurrentCard();
+      renderAlumniList();
+      closeFormModal();
+      showToast('Data Alumni berhasil disimpan!');
+    }
+
+    // Delete Alumni
+    function deleteAlumni(idx) {
+      if (alumniList.length <= 1) {
+        alert('Minimal harus ada 1 data alumni.');
+        return;
+      }
+      if (confirm(`Yakin ingin menghapus data alumni "${alumniList[idx].nama}"?`)) {
+        alumniList.splice(idx, 1);
+        if (currentSelectedIndex >= alumniList.length) {
+          currentSelectedIndex = alumniList.length - 1;
+        }
+        saveToLocalStorage();
+        renderCurrentCard();
+        renderAlumniList();
+        showToast('Data berhasil dihapus');
+      }
+    }
+
+    // Tab Switcher
+    function switchTab(tab) {
+      const viewCard = document.getElementById('viewCard');
+      const viewList = document.getElementById('viewList');
+      const tabCardBtn = document.getElementById('tabCardBtn');
+      const tabListBtn = document.getElementById('tabListBtn');
+
+      if (tab === 'card') {
+        viewCard.classList.remove('hidden');
+        viewList.classList.add('hidden');
+        tabCardBtn.className = 'flex-1 py-1.5 rounded-lg text-center transition-all bg-white text-slate-900 shadow';
+        tabListBtn.className = 'flex-1 py-1.5 rounded-lg text-center transition-all text-white/80 hover:text-white';
+      } else {
+        viewCard.classList.add('hidden');
+        viewList.classList.remove('hidden');
+        tabListBtn.className = 'flex-1 py-1.5 rounded-lg text-center transition-all bg-white text-slate-900 shadow';
+        tabCardBtn.className = 'flex-1 py-1.5 rounded-lg text-center transition-all text-white/80 hover:text-white';
+      }
+    }
+
+    // Toggle Desktop Phone Frame
+    let isFramed = true;
+    function togglePhoneFrame() {
+      const wrapper = document.getElementById('phoneWrapper');
+      const btn = document.getElementById('btnFrameToggle');
+      isFramed = !isFramed;
+
+      if (isFramed) {
+        wrapper.className = 'phone-container w-full md:max-w-[420px] h-screen md:h-[880px] bg-slate-100 md:rounded-[48px] overflow-hidden md:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] md:border-[10px] md:border-slate-800 flex flex-col relative transition-all duration-300';
+        btn.querySelector('span').innerText = 'Toggle Frame HP';
+      } else {
+        wrapper.className = 'phone-container w-full md:max-w-2xl h-screen md:h-[92vh] bg-slate-100 md:rounded-3xl overflow-hidden shadow-2xl flex flex-col relative transition-all duration-300';
+        btn.querySelector('span').innerText = 'Kembalikan Frame HP';
+      }
+    }
+
+    // Toast message trigger
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMessage').innerText = msg;
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 2500);
+    }
+
+    // ================= WHATSAPP SHARE TO ALUMNI =================
+    function getActiveShareUrl() {
+      const saved = localStorage.getItem('aal_custom_share_link');
+      if (saved && saved.trim()) return saved.trim();
+      if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+        return window.location.href.split('#')[0];
+      }
+      return 'https://alumni.astra-agro.co.id/isi-data';
+    }
+
+    function openShareLinkModal() {
+      const modal = document.getElementById('modalShareWhatsApp');
+      if (!modal) return;
+      const url = getActiveShareUrl();
+      const input = document.getElementById('shareUrlInput');
+      const preview = document.getElementById('previewShareLinkText');
+      if (input) input.value = url;
+      if (preview) preview.innerText = url;
+      modal.classList.remove('hidden');
+    }
+
+    function closeShareLinkModal() {
+      const modal = document.getElementById('modalShareWhatsApp');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function updateShareUrlFromInput() {
+      const input = document.getElementById('shareUrlInput');
+      const preview = document.getElementById('previewShareLinkText');
+      if (!input) return;
+      const val = input.value.trim() || getActiveShareUrl();
+      if (preview) preview.innerText = val;
+      if (input.value.trim()) {
+        localStorage.setItem('aal_custom_share_link', input.value.trim());
+      }
+    }
+
+    function getAlumniInviteMessage() {
+      const pageUrl = getActiveShareUrl();
+
+      return `*PAGUYUBAN PURNA BAKTI ASTRA AGRO LESTARI (AAL)*
+🌿 *Satu Hati • Satu Rasa • Alumni AAL* 🌿
+
+Yth. Bapak/Ibu Rekan Pensiunan AAL,
+
+Dalam rangka mempererat tali silaturahmi & pemutakhiran data paguyuban, kami mengundang Bapak/Ibu untuk melengkapi *Lembar Data Warga Alumni AAL* melalui tautan formulir berikut:
+
+👉 ${pageUrl}
+
+📌 *Data yang dicatat meliputi:*
+1️⃣ Foto Profil Alumni (Bisa Zoom 2x & Simpan)
+2️⃣ Data Diri: Nama Lengkap & Tanggal Lahir
+3️⃣ Alamat Domisili Sekarang & Nomor WhatsApp
+4️⃣ Devisi & Perusahaan (41 Entitas AAL / Head Office / Site PT)
+5️⃣ Rentang Waktu Bekerja & Mantan Atasan
+6️⃣ Tahun Pensiun & Kegiatan Saat Ini
+7️⃣ Informasi Cucu (Laki-laki & Perempuan)
+
+Mohon bantuannya untuk membagikan tautan ini ke rekan-rekan alumni purna bakti AAL lainnya. Terima kasih atas kebersamaan dan perhatiannya! 🙏`;
+    }
+
+    function shareLinkToWhatsAppDirect() {
+      const message = getAlumniInviteMessage();
+      const encoded = encodeURIComponent(message);
+      const waUrl = `https://api.whatsapp.com/send?text=${encoded}`;
+
+      if (navigator.share && (window.location.protocol === 'http:' || window.location.protocol === 'https:')) {
+        navigator.share({
+          title: 'Lembar Data Alumni AAL',
+          text: message,
+          url: getActiveShareUrl()
+        }).catch(() => {
+          window.open(waUrl, '_blank');
+        });
+      } else {
+        window.open(waUrl, '_blank');
+      }
+      showToast('Membuka WhatsApp untuk berbagi link...');
+    }
+
+    function shareToWhatsAppAlumni() {
+      openShareLinkModal();
+    }
+
+    function copyShareUrlOnly() {
+      const url = getActiveShareUrl();
+      copyTextToClipboard(url, 'Link formulir berhasil disalin ke clipboard!');
+    }
+
+    function copyInvitationText() {
+      const message = getAlumniInviteMessage();
+      copyTextToClipboard(message, 'Teks undangan WhatsApp berhasil disalin!');
+    }
+
+    function sendToSpecificWANumber() {
+      const input = document.getElementById('directWANumberInput');
+      if (!input || !input.value.trim()) {
+        showToast('Masukkan nomor WhatsApp rekan terlebih dahulu');
+        if (input) input.focus();
+        return;
+      }
+      let phone = input.value.replace(/[^0-9]/g, '');
+      if (phone.startsWith('0')) {
+        phone = '62' + phone.substring(1);
+      } else if (!phone.startsWith('62')) {
+        phone = '62' + phone;
+      }
+      const message = getAlumniInviteMessage();
+      const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(waUrl, '_blank');
+      showToast(`Membuka chat WhatsApp ke +${phone}...`);
+    }
+
+    function copyTextToClipboard(text, successMsg) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(successMsg);
+        }).catch(() => {
+          fallbackCopyText(text, successMsg);
+        });
+      } else {
+        fallbackCopyText(text, successMsg);
+      }
+    }
+
+    function fallbackCopyText(text, successMsg) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast(successMsg || 'Berhasil disalin ke clipboard!');
+      } catch (err) {
+        alert('Silakan salin teks ini:\n\n' + text);
+      }
+      document.body.removeChild(textarea);
+    }
+
+    // Digital Clock on Status Bar
+    function updateClock() {
+      const now = new Date();
+      const hrs = String(now.getHours()).padStart(2, '0');
+      const mins = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('currentTime').innerText = `${hrs}:${mins}`;
+    }
+    setInterval(updateClock, 30000);
+
+    // ================= PHOTO ZOOM & PAN STATE =================
+    let currentZoom = 1.0;
+    let panX = 0;
+    let panY = 0;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let initialPinchDistance = null;
+    let initialZoomOnPinch = 1.0;
+    let lastTapTime = 0;
+
+    function openPhotoZoomModal() {
+      const current = alumniList[currentSelectedIndex] || alumniList[0];
+      const photoEl = document.getElementById('displayPhoto');
+      const zoomImg = document.getElementById('zoomModalImg');
+      const modal = document.getElementById('photoZoomModal');
+
+      zoomImg.src = photoEl.src;
+      document.getElementById('zoomModalTitle').innerText = `Foto: ${current ? current.nama : 'Alumni AAL'}`;
+
+      // Reset Zoom & Pan
+      currentZoom = 1.0;
+      panX = 0;
+      panY = 0;
+      updateZoomTransform();
+
+      modal.classList.remove('hidden');
+    }
+
+    function closePhotoZoomModal() {
+      const modal = document.getElementById('photoZoomModal');
+      modal.classList.add('hidden');
+      currentZoom = 1.0;
+      panX = 0;
+      panY = 0;
+      updateZoomTransform();
+    }
+
+    function updateZoomTransform(smooth = false) {
+      const container = document.getElementById('zoomImgContainer');
+      const badge = document.getElementById('zoomLevelBadge');
+      if (!container || !badge) return;
+      
+      if (smooth) {
+        container.classList.add('transition-transform', 'duration-200');
+      } else {
+        container.classList.remove('transition-transform', 'duration-200');
+      }
+
+      container.style.transform = `translate(${panX}px, ${panY}px) scale(${currentZoom})`;
+      badge.innerText = `${Math.round(currentZoom * 100)}%`;
+    }
+
+    function zoomIn() {
+      currentZoom = Math.min(4.0, currentZoom + 0.35);
+      updateZoomTransform(true);
+    }
+
+    function zoomOut() {
+      currentZoom = Math.max(0.7, currentZoom - 0.35);
+      if (currentZoom <= 1.0) {
+        panX = 0;
+        panY = 0;
+      }
+      updateZoomTransform(true);
+    }
+
+    function resetZoom() {
+      currentZoom = 1.0;
+      panX = 0;
+      panY = 0;
+      updateZoomTransform(true);
+    }
+
+    // ================= DOWNLOAD / SIMPAN FOTO =================
+    async function downloadCurrentPhoto() {
+      const current = alumniList[currentSelectedIndex] || alumniList[0] || { nama: 'Alumni_AAL' };
+      const photoEl = document.getElementById('displayPhoto');
+      const photoSrc = photoEl.src;
+      const cleanName = (current.nama || 'Alumni_AAL').replace(/[^a-zA-Z0-9]/g, '_');
+      const fileName = `Foto_${cleanName}.jpg`;
+
+      showToast('Menyiapkan foto untuk disimpan...');
+
+      try {
+        // If data URL from file upload (Base64)
+        if (photoSrc.startsWith('data:')) {
+          const a = document.createElement('a');
+          a.href = photoSrc;
+          a.download = fileName;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          showToast('Foto berhasil disimpan!');
+          return;
+        }
+
+        // Try direct fetch blob for CORS-enabled images
+        const response = await fetch(photoSrc, { mode: 'cors' });
+        if (response.ok) {
+          const blob = await response.blob();
+          const blobUrl = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = blobUrl;
+          a.download = fileName;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+          showToast('Foto berhasil disimpan ke galeri/unduhan!');
+          return;
+        }
+        throw new Error('Fetch failed');
+      } catch (err) {
+        // Fallback: draw image to Canvas to export as JPEG
+        try {
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = function() {
+            try {
+              const canvas = document.createElement('canvas');
+              canvas.width = img.naturalWidth || 600;
+              canvas.height = img.naturalHeight || 600;
+              const ctx = canvas.getContext('2d');
+              ctx.drawImage(img, 0, 0);
+              const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+              const a = document.createElement('a');
+              a.href = dataUrl;
+              a.download = fileName;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              showToast('Foto berhasil disimpan!');
+            } catch (canvasErr) {
+              window.open(photoSrc, '_blank');
+              showToast('Silakan tekan lama foto lalu simpan');
+            }
+          };
+          img.onerror = function() {
+            window.open(photoSrc, '_blank');
+            showToast('Silakan simpan gambar dari tab baru');
+          };
+          img.src = photoSrc;
+        } catch (e2) {
+          window.open(photoSrc, '_blank');
+          showToast('Silakan simpan gambar');
+        }
+      }
+    }
+
+    // Touch & Pointer Gesture Listeners for Zoom Viewer Area
+    function setupZoomViewerGestures() {
+      const viewer = document.getElementById('zoomViewerArea');
+      if (!viewer) return;
+
+      // Mouse Wheel Zoom
+      viewer.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY < 0 ? 0.2 : -0.2;
+        currentZoom = Math.min(4.0, Math.max(0.7, currentZoom + delta));
+        if (currentZoom <= 1.0) {
+          panX = 0;
+          panY = 0;
+        }
+        updateZoomTransform(false);
+      }, { passive: false });
+
+      // Mouse Drag / Pointer Pan
+      viewer.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return;
+        isDragging = true;
+        dragStartX = e.clientX - panX;
+        dragStartY = e.clientY - panY;
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        panX = e.clientX - dragStartX;
+        panY = e.clientY - dragStartY;
+        updateZoomTransform(false);
+      });
+
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+
+      // Double Click / Double Tap to toggle 1x <-> 2.2x
+      viewer.addEventListener('click', (e) => {
+        if (e.target.closest('button')) return;
+        const now = Date.now();
+        if (now - lastTapTime < 300) {
+          if (currentZoom > 1.2) {
+            resetZoom();
+          } else {
+            currentZoom = 2.2;
+            updateZoomTransform(true);
+          }
+        }
+        lastTapTime = now;
+      });
+
+      // Touch Events for Mobile (1 finger drag, 2 fingers pinch)
+      viewer.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          isDragging = true;
+          dragStartX = e.touches[0].clientX - panX;
+          dragStartY = e.touches[0].clientY - panY;
+        } else if (e.touches.length === 2) {
+          isDragging = false;
+          initialPinchDistance = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+          initialZoomOnPinch = currentZoom;
+        }
+      }, { passive: true });
+
+      viewer.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 1 && isDragging && currentZoom > 1.0) {
+          panX = e.touches[0].clientX - dragStartX;
+          panY = e.touches[0].clientY - dragStartY;
+          updateZoomTransform(false);
+        } else if (e.touches.length === 2 && initialPinchDistance) {
+          const currentDistance = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+          const ratio = currentDistance / initialPinchDistance;
+          currentZoom = Math.min(4.0, Math.max(0.7, initialZoomOnPinch * ratio));
+          updateZoomTransform(false);
+        }
+      }, { passive: true });
+
+      viewer.addEventListener('touchend', (e) => {
+        if (e.touches.length < 2) {
+          initialPinchDistance = null;
+        }
+        if (e.touches.length === 0) {
+          isDragging = false;
+        }
+      });
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      initData();
+      setupZoomViewerGestures();
+    });
+  </script>
+</body>
+</html>
