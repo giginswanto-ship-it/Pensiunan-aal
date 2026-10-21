@@ -1,6 +1,6 @@
 # Sistem Lembar Data Alumni AAL (Laravel Framework & Database SQL)
 
-Aplikasi **Lembar Data Alumni AAL** kini telah dikembangkan menjadi sistem berbasis backend **Laravel Framework** dan database **SQL (MySQL / MariaDB / SQLite)**, dengan tetap mempertahankan **100% gaya, warna, responsivitas HP Android, foto 2x lebih besar, zoom interaktif, dan fitur simpan gambar** yang telah ada.
+Aplikasi **Lembar Data Alumni AAL** kini telah dikembangkan menjadi sistem berbasis backend **Laravel Framework** dan database **SQL (MySQL / MariaDB / SQLite)**, dengan tetap mempertahankan **100% gaya, warna, responsivitas HP Android, foto 3x lebih besar, zoom interaktif, dan fitur simpan gambar** yang telah ada.
 
 ---
 
@@ -49,7 +49,7 @@ Tabel utama yang dibuat adalah `alumnis`:
    - Seeder: [`database/seeders/AlumniSeeder.php`](file:///c:/Users/Swanto/OneDrive/Desktop/DATA%20WARGA%20ALUMNI%20AAL/database/seeders/AlumniSeeder.php) (Dilengkapi data awal contoh).
 4. **View (Blade Template)**  
    - Lokasi: [`resources/views/alumni/index.blade.php`](file:///c:/Users/Swanto/OneDrive/Desktop/DATA%20WARGA%20ALUMNI%20AAL/resources/views/alumni/index.blade.php)  
-   - Tampilan: Tetap mempertahankan desain UI/UX mobile Android, foto 2x lebih besar, interaktif zoom fullscreen, tombol simpan foto, **tombol share link tunggal** (dukungan native Web Share & auto-copy link tanpa duplikasi), integrasi **41 Entitas Perusahaan AAL** (dengan modal katalog direktori interaktif, auto-suggest datalist, dan auto-fill lokasi Site), serta sinkronisasi AJAX ke database SQL.
+   - Tampilan: Tetap mempertahankan desain UI/UX mobile Android, foto 3x lebih besar, interaktif zoom fullscreen, tombol simpan foto, **tombol share link tunggal** (dukungan native Web Share & auto-copy link tanpa duplikasi), integrasi **41 Entitas Perusahaan AAL** (dengan modal katalog direktori interaktif, auto-suggest datalist, dan auto-fill lokasi Site), serta sinkronisasi AJAX ke database SQL.
 5. **Routes**  
    - Web Routes: [`routes/web.php`](file:///c:/Users/Swanto/OneDrive/Desktop/DATA%20WARGA%20ALUMNI%20AAL/routes/web.php) (`Route::resource('alumni', AlumniController::class)`)  
    - API Routes: [`routes/api.php`](file:///c:/Users/Swanto/OneDrive/Desktop/DATA%20WARGA%20ALUMNI%20AAL/routes/api.php)

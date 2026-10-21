@@ -102,7 +102,7 @@
   </div>
 
   <!-- Android Phone Mockup Wrapper -->
-  <div id="phoneWrapper" class="phone-container w-full md:max-w-[420px] h-screen md:h-[880px] bg-slate-100 md:rounded-[48px] overflow-hidden md:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] md:border-[10px] md:border-slate-800 flex flex-col relative transition-all duration-300">
+  <div id="phoneWrapper" class="phone-container w-full md:max-w-[450px] h-screen md:h-[890px] bg-slate-100 md:rounded-[48px] overflow-hidden md:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] md:border-[10px] md:border-slate-800 flex flex-col relative transition-all duration-300">
     
     <!-- Android Status Bar -->
     <div class="android-status-bar h-7 bg-brand-900 text-white flex justify-between items-center px-6 text-xs font-semibold select-none z-30 shrink-0">
@@ -188,9 +188,9 @@
 
           <!-- Photo and Primary Info Header -->
           <div class="flex flex-col items-center text-center pb-4 border-b border-slate-100">
-            <!-- 2x Larger Photo Container (w-56 h-56: 224px x 224px) -->
-            <div class="relative group mb-3">
-              <div onclick="openPhotoZoomModal()" class="w-56 h-56 rounded-3xl overflow-hidden border-4 border-white shadow-xl bg-slate-100 ring-2 ring-emerald-500/25 cursor-zoom-in relative group/img transition-transform active:scale-[0.98]">
+            <!-- 3x Larger Photo Container (w-[336px] h-[336px]: 336px x 336px) -->
+            <div class="relative group mb-4">
+              <div onclick="openPhotoZoomModal()" class="w-[336px] h-[336px] max-w-full aspect-square rounded-3xl overflow-hidden border-4 border-white shadow-xl bg-slate-100 ring-2 ring-emerald-500/25 cursor-zoom-in relative group/img transition-transform active:scale-[0.98]">
                 <img id="displayPhoto" src="{{ $selectedAlumni->foto_url ?? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80' }}" alt="Foto Profil Alumni" class="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-300">
                 
                 <!-- Overlay Hover/Tap Hint: Zoom & Save -->
@@ -217,7 +217,7 @@
               </div>
             </div>
             
-            <div class="mt-3">
+            <div class="mt-4">
               <h2 id="displayName" class="text-xl font-extrabold text-slate-900 tracking-tight">{{ $selectedAlumni->nama ?? 'H. Ir. Bambang Soeprapto, M.M.' }}</h2>
               <p id="displayPT" class="text-xs font-semibold text-emerald-700 mt-0.5">{{ $selectedAlumni->nama_pt ?? 'PT Astra Agro Lestari Tbk' }}</p>
               <div class="mt-2 flex flex-wrap items-center justify-center gap-1.5 text-xs font-medium">
@@ -506,7 +506,7 @@
 
       <div id="zoomHintOverlay" class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-slate-900/80 backdrop-blur-md border border-slate-700 text-slate-300 text-[11px] px-3.5 py-1.5 rounded-full pointer-events-none shadow-lg flex items-center gap-1.5">
         <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/></svg>
-        <span>Ketuk 2x untuk perbesar • Geser untuk posisi</span>
+        <span>Ketuk 2x untuk perbesar 3x • Geser untuk posisi</span>
       </div>
     </div>
 
@@ -1763,7 +1763,7 @@
     }
 
     function zoomIn() {
-      currentZoom = Math.min(4.0, currentZoom + 0.35);
+      currentZoom = Math.min(5.0, currentZoom + 0.35);
       updateZoomTransform(true);
     }
 
@@ -1864,7 +1864,7 @@
       viewer.addEventListener('wheel', (e) => {
         e.preventDefault();
         const delta = e.deltaY < 0 ? 0.2 : -0.2;
-        currentZoom = Math.min(4.0, Math.max(0.7, currentZoom + delta));
+        currentZoom = Math.min(5.0, Math.max(0.7, currentZoom + delta));
         if (currentZoom <= 1.0) {
           panX = 0;
           panY = 0;
@@ -1897,7 +1897,7 @@
           if (currentZoom > 1.2) {
             resetZoom();
           } else {
-            currentZoom = 2.2;
+            currentZoom = 3.0;
             updateZoomTransform(true);
           }
         }
@@ -1930,7 +1930,7 @@
             e.touches[0].clientY - e.touches[1].clientY
           );
           const ratio = currentDistance / initialPinchDistance;
-          currentZoom = Math.min(4.0, Math.max(0.7, initialZoomOnPinch * ratio));
+          currentZoom = Math.min(5.0, Math.max(0.7, initialZoomOnPinch * ratio));
           updateZoomTransform(false);
         }
       }, { passive: true });

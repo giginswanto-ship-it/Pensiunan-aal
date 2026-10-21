@@ -8,8 +8,8 @@ Aplikasi Web Mobile **Lembar Data Alumni AAL** dirancang khusus dengan antarmuka
 
 Aplikasi ini mencakup seluruh data yang diminta dengan tampilan kartu profil yang rapi, elegan, dan profesional:
 
-1. **Foto Alumni (Ukuran 2x Lebih Besar, Fitur Zoom & Simpan)**  
-   - Tampilan foto utama kini **2x lebih besar** (224px x 224px) dengan sudut membulat modern & elegan.
+1. **Foto Alumni (Ukuran 3x Lebih Besar, Fitur Zoom & Simpan)**  
+   - Tampilan foto utama kini **3x lebih besar** (336px x 336px) dengan sudut membulat modern & elegan.
    - **Fitur Zoom Interaktif**: Ketuk foto untuk membuka penampil layar penuh (Lightbox). Mendukung cubit layar (*pinch to zoom*), ketuk dua kali (*double-tap* untuk zoom 2x), tombol perbesar/perkecil, serta geser foto (*pan/drag*).
    - **Fitur Simpan / Download Foto**: Tombol **"Simpan Foto"** langsung di kartu profil dan di dalam jendela zoom untuk mengunduh foto ke galeri HP Android atau folder unduhan PC (format JPG).
    - Dukungan upload foto dari Galeri HP atau langsung jepret dengan Kamera HP.
