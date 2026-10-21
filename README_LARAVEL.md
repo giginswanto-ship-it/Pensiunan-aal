@@ -32,7 +32,7 @@ Tabel utama yang dibuat adalah `alumnis`:
 | `created_at` | TIMESTAMP | Tanggal dibuat |
 | `updated_at` | TIMESTAMP | Tanggal terakhir diubah |
 
-> **File SQL Siap Import**: Disediakan file [**`alumni_aal.sql`**](file:///c:/Users/Swanto/OneDrive/Desktop/DATA%20WARGA%20ALUMNI%20AAL/alumni_aal.sql) yang bisa langsung Anda import ke **phpMyAdmin** atau **MySQL Workbench**.
+> **File SQL Siap Import**: Disediakan file [**`data.sql`**](file:///c:/Users/Swanto/OneDrive/Desktop/DATA%20WARGA%20ALUMNI%20AAL/data.sql) (dan [**`alumni_aal.sql`**](file:///c:/Users/Swanto/OneDrive/Desktop/DATA%20WARGA%20ALUMNI%20AAL/alumni_aal.sql)) yang berisi seluruh data lokal warga alumni dan 41 entitas perusahaan AAL, bisa langsung Anda import ke **phpMyAdmin** atau **MySQL Workbench**.
 
 ---
 
